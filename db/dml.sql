@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS Usuario {
     id INT PRIMARY KEY AUTO_INCREMENT, 
     perfil_id INT,
     nickname VARCHAR(20),
-    contrasena VARCHAR(25),
+    contrasena VARCHAR(20),
     CONSTRAINT perfil_usuario_FK FOREIGN KEY (perfil_id) REFERENCES Perfil(id) ON UPDATE CASCADE
 };
 

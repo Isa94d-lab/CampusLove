@@ -1,6 +1,6 @@
 namespace CampusLove.Domain.Entities
 {
-    public class LikesDriarios 
+    public class LikesDiarios 
     {
         public int Id { get; set;}
         public int PerfilId { get; set;}

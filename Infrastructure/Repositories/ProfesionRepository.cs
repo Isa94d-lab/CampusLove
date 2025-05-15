@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace CampusLove.Infrastructure.Repositories
 {
-    public class ProfesionRepository : IGenericRepository<Profesion>
+    public class ProfesionRepository : IGenericRepository<Profesion>, IProfesionRepository
     {
         private readonly MySqlConnection _connection;
 

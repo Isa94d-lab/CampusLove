@@ -60,5 +60,11 @@ public class MySqlDbFactory : IDbFactory
         return new UsuarioRepository(connection);
     }
 
+    public IInteresesRepository CreateInteresesRepository()
+    {
+        var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
+        return new InteresesRepository(connection);
+    }
+
 
 }

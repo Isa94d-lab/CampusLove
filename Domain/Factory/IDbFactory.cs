@@ -14,4 +14,6 @@ public interface IDbFactory
     IPerfilRepository CreatePerfilRepository();
     IProfesionRepository CreateProfesionRepository();
     IUsuarioRepository CreateUsuarioRepository();
+    IInteresesRepository CreateInteresesRepository();
+    
 }

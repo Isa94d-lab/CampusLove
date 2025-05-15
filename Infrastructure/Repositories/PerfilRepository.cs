@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace CampusLove.Infrastructure.Repositories
 {
-    public class PerfilRepository : IGenericRepository<Perfil>
+    public class PerfilRepository : IGenericRepository<Perfil>, IPerfilRepository
     {
         private readonly MySqlConnection _connection;
 

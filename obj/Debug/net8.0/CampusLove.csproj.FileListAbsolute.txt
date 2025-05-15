@@ -1,0 +1,6 @@
+/home/camper/CampusLove/obj/Debug/net8.0/CampusLove.csproj.AssemblyReference.cache
+/home/camper/CampusLove/obj/Debug/net8.0/CampusLove.GeneratedMSBuildEditorConfig.editorconfig
+/home/camper/CampusLove/obj/Debug/net8.0/CampusLove.AssemblyInfoInputs.cache
+/home/camper/CampusLove/obj/Debug/net8.0/CampusLove.AssemblyInfo.cs
+/home/camper/CampusLove/obj/Debug/net8.0/CampusLove.csproj.CoreCompileInputs.cache
+/home/camper/CampusLove/obj/Debug/net8.0/CampusLove.sourcelink.json

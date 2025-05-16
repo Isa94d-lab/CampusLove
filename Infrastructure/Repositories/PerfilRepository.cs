@@ -46,7 +46,7 @@ namespace CampusLove.Infrastructure.Repositories
                     Apellido = reader["apellido"].ToString(),
                     Edad = Convert.ToInt32(reader["edad"]),
                     Frase = reader["frase"].ToString(),
-                    gustos = reader["gustos"].ToString(),
+                    Gustos = reader["gustos"].ToString(),
                     Coins = Convert.ToInt32(reader["coins"]),
                     Profesion = new Profesion
                     {
@@ -100,7 +100,7 @@ namespace CampusLove.Infrastructure.Repositories
                     Apellido = reader["apellido"].ToString(),
                     Edad = Convert.ToInt32(reader["edad"]),
                     Frase = reader["frase"].ToString(),
-                    gustos = reader["gustos"].ToString(),
+                    Gustos = reader["gustos"].ToString(),
                     Coins = Convert.ToInt32(reader["coins"]),
                     Profesion = new Profesion
                     {
@@ -143,7 +143,7 @@ namespace CampusLove.Infrastructure.Repositories
                 command.Parameters.AddWithValue("@Apellido", perfil.Apellido ?? string.Empty);
                 command.Parameters.AddWithValue("@Edad", perfil.Edad);
                 command.Parameters.AddWithValue("@Frase", perfil.Frase ?? string.Empty);
-                command.Parameters.AddWithValue("@Gustos", perfil.gustos ?? string.Empty);
+                command.Parameters.AddWithValue("@Gustos", perfil.Gustos ?? string.Empty);
                 command.Parameters.AddWithValue("@Coins", perfil.Coins);
 
                 var result = await command.ExecuteNonQueryAsync() > 0;
@@ -187,7 +187,7 @@ namespace CampusLove.Infrastructure.Repositories
                 command.Parameters.AddWithValue("@Apellido", perfil.Apellido ?? string.Empty);
                 command.Parameters.AddWithValue("@Edad", perfil.Edad);
                 command.Parameters.AddWithValue("@Frase", perfil.Frase ?? string.Empty);
-                command.Parameters.AddWithValue("@Gustos", perfil.gustos ?? string.Empty);
+                command.Parameters.AddWithValue("@Gustos", perfil.Gustos ?? string.Empty);
                 command.Parameters.AddWithValue("@Coins", perfil.Coins);
 
                 var result = await command.ExecuteNonQueryAsync() > 0;
@@ -220,6 +220,11 @@ namespace CampusLove.Infrastructure.Repositories
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+
+        internal void Guardar(Perfil perfil)
+        {
+            throw new NotImplementedException();
         }
     }
 }

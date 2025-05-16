@@ -135,5 +135,10 @@ namespace CampusLove.Infrastructure.Repositories
                 throw;
             }
         }
+
+        internal void Guardar(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

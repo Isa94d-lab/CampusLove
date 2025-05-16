@@ -10,8 +10,10 @@ public interface IDbFactory
     IInteraccionRepository CreateInteraccionRepository();
     ILikesDiariosRepository CreateLikesDiariosRepository();
     IMatchRepository CreateMatchRepository();
-    IPerfilInteresRepository CreatePerfilInteresesRepository();
+    IPerfilInteresesRepository CreatePerfilInteresesRepository();
     IPerfilRepository CreatePerfilRepository();
     IProfesionRepository CreateProfesionRepository();
     IUsuarioRepository CreateUsuarioRepository();
+    IInteresesRepository CreateInteresesRepository();
+    
 }

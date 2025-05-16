@@ -4,7 +4,7 @@ namespace CampusLove.Infrastructure.Configuration
 {
     public static class DatabaseConfig
     {
-        private static string _connectionString = "Server=localhost;Database=sistemainventario;User=root;Password=5comentariosxdd.;";
+        private static string _connectionString = "Server=localhost;Database=CampusLove;User=root;Password=5comentariosxdd.;";
         private static MySqlConnection? _connection;
 
         public static MySqlConnection GetConnection()
@@ -32,4 +32,4 @@ namespace CampusLove.Infrastructure.Configuration
             }
         }
     }
-} 
+}

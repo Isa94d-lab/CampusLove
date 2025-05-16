@@ -1,14 +1,10 @@
-
+using CampusLove.Infrastructure.Configuration;
 using System.ComponentModel.Design;
 
 namespace CampusLove.Application.UI
 {
     public class MainMenu
     {
-        private readonly MenuRegistro _menuRegistro;
-        private readonly MenuLogin _menuLogin;
-
-
         public void MostrarMenu()
         {
             bool salir = false;
@@ -23,18 +19,19 @@ namespace CampusLove.Application.UI
                 Console.WriteLine("2. Iniciar Sesión");
                 Console.WriteLine("0. Salir");
 
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("\nSeleccione una opción: ");
+                Console.ResetColor();
                 string opcion = Console.ReadLine() ?? "";
 
                 switch (opcion)
                 {
                     case "1":
-                        _menuRegistro.MostrarMenu();
+                        // _menuRegistro.MostrarMenu();
                         break;
                     case "2":
-                        _menuLogin.MostrarMenu();
+                        // _menuLogin.MostrarMenu();
                         break;
-
                     case "0":
                         salir = true;
                         break;
@@ -48,9 +45,11 @@ namespace CampusLove.Application.UI
             MostrarMensaje("\n¡Gracias por usar Campus Love!", ConsoleColor.DarkGreen);
         }
 
-        private void MostrarMensaje(string v, ConsoleColor darkGreen)
+        private void MostrarMensaje(string mensaje, ConsoleColor color)
         {
-            throw new NotImplementedException();
+            Console.ForegroundColor = color;
+            Console.WriteLine(mensaje);
+            Console.ResetColor();
         }
 
         public static void MostrarEncabezado(string titulo)
@@ -65,5 +64,4 @@ namespace CampusLove.Application.UI
             Console.ResetColor();
         }
     }
-    
 }

@@ -20,7 +20,7 @@ namespace CampusLove.Infrastructure.Repositories
         {
             var intereses = new List<Intereses>();
             const string query = @"
-                SELECT i.id, i.descripcion
+                SELECT i.id, i.tipo
                 FROM PerfilIntereses pi
                 JOIN Intereses i ON pi.intereses_id = i.id
                 WHERE pi.perfil_id = @PerfilId";
@@ -34,7 +34,7 @@ namespace CampusLove.Infrastructure.Repositories
                 intereses.Add(new Intereses
                 {
                     Id = Convert.ToInt32(reader["id"]),
-                    Descripcion = reader["descripcion"].ToString() ?? string.Empty
+                    Tipo = reader["tipo"].ToString() ?? string.Empty
                 });
             }
 

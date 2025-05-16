@@ -55,13 +55,13 @@ CREATE TABLE IF NOT EXISTS Usuario (
     CONSTRAINT perfil_usuario_FK FOREIGN KEY (perfil_id) REFERENCES Perfil(id) ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Match (
+CREATE TABLE IF NOT EXISTS Matchs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     perfil1_id INT,
     perfil2_id INT,
     fecha DATE,
-    CONSTRAINT perfil1_match_FK FOREIGN KEY (perfil1_id) REFERENCES Perfil(id) ON UPDATE CASCADE,
-    CONSTRAINT perfil2_match_FK FOREIGN KEY (perfil2_id) REFERENCES Perfil(id) ON UPDATE CASCADE
+    CONSTRAINT perfil1_match_FK FOREIGN KEY (perfil1_id) REFERENCES Perfil(id),
+    CONSTRAINT perfil2_match_FK FOREIGN KEY (perfil2_id) REFERENCES Perfil(id)
 );
 
 CREATE TABLE IF NOT EXISTS Interaccion (

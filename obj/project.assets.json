@@ -1614,11 +1614,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/camper/CampusLove/CampusLove.csproj",
+      "projectUniqueName": "/home/camper/Escritorio/CampusLove/CampusLove.csproj",
       "projectName": "CampusLove",
-      "projectPath": "/home/camper/CampusLove/CampusLove.csproj",
+      "projectPath": "/home/camper/Escritorio/CampusLove/CampusLove.csproj",
       "packagesPath": "/home/camper/.nuget/packages/",
-      "outputPath": "/home/camper/CampusLove/obj/",
+      "outputPath": "/home/camper/Escritorio/CampusLove/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/camper/.nuget/NuGet/NuGet.Config"

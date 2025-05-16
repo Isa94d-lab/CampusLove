@@ -5,7 +5,7 @@ namespace CampusLove.Application.UI
     public class MainMenu
     {
         private readonly MenuRegistro _menuRegistro;
-        private readonly MenuLogin _menuLogin;
+        // private readonly MenuLogin _menuLogin;
 
         public MainMenu(MenuRegistro menuRegistro)
         {
@@ -33,7 +33,7 @@ namespace CampusLove.Application.UI
                 switch (opcion)
                 {
                     case "1":
-                        // _menuRegistro.MostrarMenu();
+                        _menuRegistro.MostrarMenu();
                         break;
                     case "0":
                         salir = true;

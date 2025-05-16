@@ -13,13 +13,30 @@ namespace CampusLove
 
             try
             {
-                // Configure database connection
+                // Obtener la conexión a la base de datos
                 var connection = DatabaseConfig.GetConnection();
 
-                // Connection
-                var mainMenu = new MainMenu();
-                mainMenu.MostrarMenu();
+                // Crear todos los repositorios requeridos por MenuRegistro
+                var usuarioRepo = new UsuarioRepository(connection);
+                var perfilRepo = new PerfilRepository(connection);
+                var profesionRepo = new ProfesionRepository(connection);
+                var generoRepo = new GeneroRepository(connection);
+                var estadoPerfilRepo = new EstadoPerfilRepository(connection);
 
+                // Crear el menú de registro con los repositorios
+                var menuRegistro = new MenuRegistro(
+                    usuarioRepo,
+                    perfilRepo,
+                    profesionRepo,
+                    generoRepo,
+                    estadoPerfilRepo
+                );
+
+                // Crear menú principal con menú de registro inyectado
+                var mainMenu = new MainMenu(menuRegistro);
+
+                // Mostrar el menú
+                mainMenu.MostrarMenu();
             }
             catch (Exception ex)
             {

@@ -49,16 +49,13 @@ namespace CampusLove.Application.UI
         }
 
         private void MostrarMensaje(string mensaje, ConsoleColor color)
-        private void MostrarMensaje(string mensaje, ConsoleColor color)
         {
-            Console.ForegroundColor = color;
-            Console.WriteLine(mensaje);
-            Console.ResetColor();
             Console.ForegroundColor = color;
             Console.WriteLine(mensaje);
             Console.ResetColor();
         }
 
+        
         public static void MostrarEncabezado(string titulo)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;

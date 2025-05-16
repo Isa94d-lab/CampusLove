@@ -80,3 +80,14 @@ CREATE TABLE IF NOT EXISTS LikesDiarios (
     cantidad INT,
     CONSTRAINT perfil_likesDiarios_FK FOREIGN KEY (perfil_id) REFERENCES Perfil(id) ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS LikesUsuario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id INT,
+    perfil_likeado_id INT,
+    fechaLike DATE,
+    match_r BOOLEAN DEFAULT FALSE,
+    CONSTRAINT usuario_likesUsuario_FK FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
+    CONSTRAINT perfil_likeado_FK FOREIGN KEY (perfil_likeado_id) REFERENCES Perfil(id),
+    UNIQUE KEY unique_like (usuario_id, perfil_likeado_id)
+);

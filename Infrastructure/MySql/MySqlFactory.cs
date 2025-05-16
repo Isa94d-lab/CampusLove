@@ -1,10 +1,10 @@
-using InventoryManagement.Domain.Entities;
-using InventoryManagement.Domain.Factory;
-using InventoryManagement.Domain.Ports;
-using InventoryManagement.Infrastructure.Repositories;
+using CampusLove.Domain.Entities;
+using CampusLove.Domain.Factory;
+using CampusLove.Domain.Ports;
+using CampusLove.Infrastructure.Repositories;
 using MySql.Data.MySqlClient;
 
-namespace InventoryManagement.Infrastructure.Mysql;
+namespace CampusLove.Infrastructure.Mysql;
 
 public class MySqlDbFactory : IDbFactory
 {
@@ -14,95 +14,57 @@ public class MySqlDbFactory : IDbFactory
     {
         _connectionString = connectionString;
     }
-
-    public IPurchaseRepository CreatePurchaseRepository()
+    public IEstadoPerfilRepository CreateEstadoPerfilRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new PurchaseRepository(connection);
+        return new EstadoPerfilRepository(connection);
     }
-
-    public IProductRepository CreateProductRepository()
+    public IGeneroRepository CreateGeneroRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new ProductRepository(connection);
+        return new GeneroRepository(connection);
     }
-
-    public IPromotionalPlanRepository CreatePromotionalPlanRepository()
+    public IInteraccionRepository CreateInteraccionRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new PlanRepository(connection);
+        return new InteraccionRepository(connection);
     }
-
-    public ICashFlowRepository CreateCashFlowRepository()
+    public ILikesDiariosRepository CreateLikesDiariosRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new CashFlowRepository(connection);
+        return new LikesDiariosRepository(connection);
     }
-
-    public ISaleRepository CreateSaleRepository()
+    public IMatchRepository CreateMatchRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new SaleRepository(connection);
+        return new MatchRepository(connection);
     }
-
-    public IEmployeeRepository CreateEmployeeRepository()
+    public IPerfilInteresesRepository CreatePerfilInteresesRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new EmployeeRepository(connection);
+        return new PerfilInteresesRepository(connection);
     }
-
-    public ISupplierRepository CreateSupplierRepository()
+    public IPerfilRepository CreatePerfilRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new SupplierRepository(connection);
+        return new PerfilRepository(connection);
     }
-
-    public ICustomerRepository CreateCustomerRepository()
+    public IProfesionRepository CreateProfesionRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new CustomerRepository(connection);
+        return new ProfesionRepository(connection);
     }
-
-    public ICountryRepository CreateCountryRepository()
+    public IUsuarioRepository CreateUsuarioRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new CountryRepository(connection);
+        return new UsuarioRepository(connection);
     }
 
-    public IRegionRepository CreateRegionRepository()
+    public IInteresesRepository CreateInteresesRepository()
     {
         var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new RegionRepository(connection);
+        return new InteresesRepository(connection);
     }
 
-    public ICityRepository CreateCityRepository()
-    {
-        var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new CityRepository(connection);
-    }
-
-    public IPersonRepository CreatePersonRepository()
-    {
-        var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new PersonRepository(connection);
-    }
-
-    public IPersonTelephoneRepository CreatePersonTelephoneRepository()
-    {
-        var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new PersonTelephoneRepository(connection);
-    }
-
-    public IArlRepository CreateArlRepository()
-    {
-        var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new ArlRepository(connection);
-    }
-
-    public IEpsRepository CreateEpsRepository()
-    {
-        var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
-        return new EpsRepository(connection);
-    }
 
 }

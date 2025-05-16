@@ -3,7 +3,7 @@ using CampusLove.Domain.Entities;
 
 namespace CampusLove.Domain.Ports;
 
-public interface IPerfilInteresRepository
+public interface IPerfilInteresesRepository
 {
     Task<IEnumerable<Intereses>> ObtenerInteresesDePerfilAsync(int perfilId);
     Task<bool> AgregarInteresAsync(int perfilId, int interesId);

@@ -1,8 +1,8 @@
 using System;
 using MySql.Data.MySqlClient;
-using InventoryManagement.Application.config.Settings;
+using CampusLove.Application.config.Settings;
 
-namespace InventoryManagement.Infrastructure.Mysql;
+namespace CampusLove.Infrastructure.Mysql;
 
 public class ConexionSingleton
 {

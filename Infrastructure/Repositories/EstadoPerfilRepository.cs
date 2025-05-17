@@ -55,7 +55,7 @@ namespace CampusLove.Infrastructure.Repositories
             return null;
         }
 
-        public async Task<bool> InsertAsync(EstadoPerfil estado)
+       public async Task<int> InsertAsync(EstadoPerfil estado)
         {
             if (estado == null)
                 throw new ArgumentNullException(nameof(estado));
@@ -68,9 +68,13 @@ namespace CampusLove.Infrastructure.Repositories
                 using var command = new MySqlCommand(query, _connection, transaction);
                 command.Parameters.AddWithValue("@Descripcion", estado.Descripcion);
 
-                var result = await command.ExecuteNonQueryAsync() > 0;
+                await command.ExecuteNonQueryAsync();
+
+                // Obtener el ID insertado
+                int estadoId = (int)command.LastInsertedId;
+
                 await transaction.CommitAsync();
-                return result;
+                return estadoId;
             }
             catch
             {
@@ -78,6 +82,7 @@ namespace CampusLove.Infrastructure.Repositories
                 throw;
             }
         }
+
 
         public async Task<bool> UpdateAsync(EstadoPerfil estado)
         {

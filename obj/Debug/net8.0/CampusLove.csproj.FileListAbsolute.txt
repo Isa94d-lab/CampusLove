@@ -4,3 +4,85 @@
 /home/camper/CampusLove/obj/Debug/net8.0/CampusLove.AssemblyInfo.cs
 /home/camper/CampusLove/obj/Debug/net8.0/CampusLove.csproj.CoreCompileInputs.cache
 /home/camper/CampusLove/obj/Debug/net8.0/CampusLove.sourcelink.json
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.csproj.AssemblyReference.cache
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.GeneratedMSBuildEditorConfig.editorconfig
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.AssemblyInfoInputs.cache
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.AssemblyInfo.cs
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.csproj.CoreCompileInputs.cache
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.sourcelink.json
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/CampusLove
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/CampusLove.deps.json
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/CampusLove.runtimeconfig.json
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/CampusLove.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/CampusLove.pdb
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/Google.Protobuf.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/K4os.Compression.LZ4.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/K4os.Compression.LZ4.Streams.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/K4os.Hash.xxHash.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/MySql.Data.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/System.Diagnostics.EventLog.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/System.IO.Pipelines.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/System.Security.Permissions.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/System.Text.Encodings.Web.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/System.Text.Json.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/System.Windows.Extensions.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/ZstdSharp.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/win-x64/native/comerr64.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/win-x64/native/gssapi64.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/win-x64/native/k5sprt64.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/win-x64/native/krb5_64.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/win-x64/native/krbcc64.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
+/home/camper/Escritorio/CampusLove/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Windows.Extensions.dll
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.csproj.Up2Date
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.dll
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/refint/CampusLove.dll
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.pdb
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/CampusLove.genruntimeconfig.cache
+/home/camper/Escritorio/CampusLove/obj/Debug/net8.0/ref/CampusLove.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\CampusLove.exe
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\CampusLove.deps.json
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\CampusLove.runtimeconfig.json
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\CampusLove.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\CampusLove.pdb
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\Google.Protobuf.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\K4os.Compression.LZ4.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\K4os.Compression.LZ4.Streams.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\K4os.Hash.xxHash.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\MySql.Data.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\System.IO.Pipelines.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\System.Text.Json.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\ZstdSharp.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\win-x64\native\comerr64.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\win-x64\native\gssapi64.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\win-x64\native\k5sprt64.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\win-x64\native\krb5_64.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\win-x64\native\krbcc64.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.csproj.AssemblyReference.cache
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.GeneratedMSBuildEditorConfig.editorconfig
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.AssemblyInfoInputs.cache
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.AssemblyInfo.cs
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.csproj.CoreCompileInputs.cache
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.sourcelink.json
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.csproj.Up2Date
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\refint\CampusLove.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.pdb
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\CampusLove.genruntimeconfig.cache
+D:\1 Usuario\Desktop\BIBI\CampusLove\obj\Debug\net8.0\ref\CampusLove.dll

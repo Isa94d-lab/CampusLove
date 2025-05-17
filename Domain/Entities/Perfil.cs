@@ -10,7 +10,7 @@ namespace CampusLove.Domain.Entities
         public string? Apellido { get; set;}
         public int Edad { get; set;}
         public string? Frase { get; set;}
-        public string? gustos { get; set;}
+        public string? Gustos { get; set;}
         public int Coins { get; set;}
         public Profesion? Profesion { get; set; }
         public Genero? Genero { get; set; }

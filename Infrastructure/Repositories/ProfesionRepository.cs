@@ -58,22 +58,26 @@ namespace CampusLove.Infrastructure.Repositories
             return null;
         }
 
-        public async Task<bool> InsertAsync(Profesion profesion)
+        public async Task<int> InsertAsync(Profesion profesion)
         {
-            if (profesion == null) throw new ArgumentNullException(nameof(profesion));
+            if (profesion == null)
+                throw new ArgumentNullException(nameof(profesion));
 
             const string query = "INSERT INTO Profesion (descripcion) VALUES (@Descripcion)";
-
             using var transaction = await _connection.BeginTransactionAsync();
 
             try
             {
                 using var command = new MySqlCommand(query, _connection, transaction);
-                command.Parameters.AddWithValue("@Descripcion", profesion.Descripcion ?? string.Empty);
+                command.Parameters.AddWithValue("@Descripcion", profesion.Descripcion);
 
-                var result = await command.ExecuteNonQueryAsync() > 0;
+                await command.ExecuteNonQueryAsync();
+
+                // Aquí se obtiene el ID insertado
+                int profesionId = (int)command.LastInsertedId;
+
                 await transaction.CommitAsync();
-                return result;
+                return profesionId;
             }
             catch
             {
@@ -81,6 +85,7 @@ namespace CampusLove.Infrastructure.Repositories
                 throw;
             }
         }
+
 
         public async Task<bool> UpdateAsync(Profesion profesion)
         {

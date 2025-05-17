@@ -123,7 +123,7 @@ namespace CampusLove.Infrastructure.Repositories
             return null;
         }
 
-        public async Task<bool> InsertAsync(Perfil perfil)
+        public async Task<int> InsertAsync(Perfil perfil)
         {
             if (perfil == null) throw new ArgumentNullException(nameof(perfil));
 
@@ -146,9 +146,11 @@ namespace CampusLove.Infrastructure.Repositories
                 command.Parameters.AddWithValue("@Gustos", perfil.Gustos ?? string.Empty);
                 command.Parameters.AddWithValue("@Coins", perfil.Coins);
 
-                var result = await command.ExecuteNonQueryAsync() > 0;
+                await command.ExecuteNonQueryAsync();
+                int perfilId = (int)command.LastInsertedId;
+
                 await transaction.CommitAsync();
-                return result;
+                return perfilId; 
             }
             catch
             {
@@ -156,6 +158,7 @@ namespace CampusLove.Infrastructure.Repositories
                 throw;
             }
         }
+
 
         public async Task<bool> UpdateAsync(Perfil perfil)
         {

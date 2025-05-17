@@ -22,7 +22,8 @@ namespace CampusLove.Application.UI
                 MostrarEncabezado("CAMPUS LOVE");
 
                 Console.WriteLine("\nMENÚ PRINCIPAL:");
-                Console.WriteLine("1. Registrarse (Usuario y Perfil)");
+                Console.WriteLine("1. Registrarse");
+                Console.WriteLine("2. Iniciar Sesion");
                 Console.WriteLine("0. Salir");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -33,7 +34,7 @@ namespace CampusLove.Application.UI
                 switch (opcion)
                 {
                     case "1":
-                        _menuRegistro.MostrarMenu();
+                        _menuRegistro.MostrarMenuAsync().GetAwaiter().GetResult();
                         break;
                     case "0":
                         salir = true;

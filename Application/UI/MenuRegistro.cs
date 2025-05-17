@@ -26,58 +26,55 @@ namespace CampusLove.Application.UI
             _estadoPerfilRepository = estadoPerfilRepository;
         }
 
-        public void MostrarMenu()
+        public async Task MostrarMenuAsync()
         {
             Console.Clear();
             MainMenu.MostrarEncabezado("REGISTRO DE USUARIO Y PERFIL");
 
-            // Registrar Usuario
-            Console.Write("\nIngrese el nickname: ");
-            string nickname = Console.ReadLine() ?? "";
-
-            Console.Write("Ingrese la contraseña: ");
-            string password = Console.ReadLine() ?? "";
-
-            var usuario = new Usuario
-            {
-                Nickname = nickname,
-                Password = password
-            };
-
-            // Registrar Perfil
-            Console.Write("\nIngrese el nombre: ");
+            // Datos del perfil
+            Console.Write("\n📛 Nombre: ");
             string nombre = Console.ReadLine() ?? "";
 
-            Console.Write("Ingrese el apellido: ");
+            Console.Write("🧑 Apellido: ");
             string apellido = Console.ReadLine() ?? "";
 
-            Console.Write("Ingrese la edad: ");
+            Console.Write("🎂 Edad: ");
             int edad = int.TryParse(Console.ReadLine(), out int edadValida) ? edadValida : 0;
 
-            Console.Write("Ingrese una frase: ");
+            Console.Write("💬 Frase: ");
             string frase = Console.ReadLine() ?? "";
 
-            Console.Write("Ingrese sus gustos: ");
+            Console.Write("❤️ Gustos: ");
             string gustos = Console.ReadLine() ?? "";
 
-            Console.Write("Ingrese la cantidad inicial de coins: ");
-            int coins = int.TryParse(Console.ReadLine(), out int coinsValidos) ? coinsValidos : 0;
+            // Selección de profesión
+            var profesiones = (await _profesionRepository.GetAllAsync()).ToList();
+            Console.WriteLine("\n💼 Seleccione una profesión:");
+            for (int i = 0; i < profesiones.Count; i++)
+                Console.WriteLine($"{i + 1}. {profesiones[i].Descripcion}");
+            Console.Write("Opción: ");
+            int idxProfesion = int.Parse(Console.ReadLine() ?? "1");
+            var profesionSeleccionada = profesiones[idxProfesion - 1];
 
-            // Solicitar Profesion
-            Console.Write("\nIngrese la profesión: ");
-            string profesionNombre = Console.ReadLine() ?? "";
-            var profesion = new Profesion { Descripcion = profesionNombre };
+            // Selección de género
+            var generos = (await _generoRepository.GetAllAsync()).ToList();
+            Console.WriteLine("\n🚻 Seleccione un género:");
+            for (int i = 0; i < generos.Count; i++)
+                Console.WriteLine($"{i + 1}. {generos[i].Descripcion}");
+            Console.Write("Opción: ");
+            int idxGenero = int.Parse(Console.ReadLine() ?? "1");
+            var generoSeleccionado = generos[idxGenero - 1];
 
-            // Solicitar Género
-            Console.Write("Ingrese el género: ");
-            string generoNombre = Console.ReadLine() ?? "";
-            var genero = new Genero { Descripcion = generoNombre };
+            // Selección de estado de perfil
+            var estados = (await _estadoPerfilRepository.GetAllAsync()).ToList();
+            Console.WriteLine("\n📊 Seleccione el estado del perfil:");
+            for (int i = 0; i < estados.Count; i++)
+                Console.WriteLine($"{i + 1}. {estados[i].Descripcion}");
+            Console.Write("Opción: ");
+            int idxEstado = int.Parse(Console.ReadLine() ?? "1");
+            var estadoSeleccionado = estados[idxEstado - 1];
 
-            // Solicitar Estado de Perfil
-            Console.Write("Ingrese el estado del perfil: ");
-            string estadoPerfilNombre = Console.ReadLine() ?? "";
-            var estadoPerfil = new EstadoPerfil { Descripcion = estadoPerfilNombre };
-
+            // Crear y guardar perfil primero
             var perfil = new Perfil
             {
                 Nombre = nombre,
@@ -85,19 +82,36 @@ namespace CampusLove.Application.UI
                 Edad = edad,
                 Frase = frase,
                 Gustos = gustos,
-                Coins = coins,
-                Profesion = profesion,
-                Genero = genero,
-                EstadoPerfil = estadoPerfil
+                Coins = 0,
+                ProfesionId = profesionSeleccionada.Id,
+                GeneroId = generoSeleccionado.Id,
+                EstadoPerfilId = estadoSeleccionado.Id
             };
 
-            // Guardar Usuario y Perfil
-            _usuarioRepository.Guardar(usuario);
-            _perfilRepository.Guardar(perfil);
+            // Este método InsertAsync debe devolver el id generado para el perfil
+            int perfilId = await _perfilRepository.InsertAsync(perfil);
 
-            Console.WriteLine("\nUsuario y perfil registrados exitosamente.");
-            Console.WriteLine("\nPresione cualquier tecla para volver al menú principal...");
+            // Ahora pedir datos para usuario
+            Console.Write("\n Nickname: ");
+            string nickname = Console.ReadLine() ?? "";
+
+            Console.Write(" Contraseña: ");
+            string password = Console.ReadLine() ?? "";
+
+            // Crear y guardar usuario asignándole el perfilId recién creado
+            var usuario = new Usuario
+            {
+                PerfilId = perfilId,
+                Nickname = nickname,
+                Password = password
+            };
+
+            await _usuarioRepository.InsertAsync(usuario);
+
+            Console.WriteLine("\n✅ Usuario y perfil registrados exitosamente.");
+            Console.WriteLine("Presione una tecla para volver al menú principal...");
             Console.ReadKey();
         }
     }
+
 }

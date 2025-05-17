@@ -4,7 +4,7 @@ namespace CampusLove.Infrastructure.Configuration
 {
     public static class DatabaseConfig
     {
-        private static string _connectionString = "Server=localhost;Database=CampusLove;User=campus2023;Password=campus2023;";
+        private static string _connectionString = "Server=localhost;Database=CampusLove;User=root;Password=5comentariosxdd.;";
         private static MySqlConnection? _connection;
 
         public static MySqlConnection GetConnection()

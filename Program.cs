@@ -23,7 +23,7 @@ namespace CampusLove
                 var generoRepo = new GeneroRepository(connection);
                 var estadoPerfilRepo = new EstadoPerfilRepository(connection);
 
-                // Crear el menú de registro con los repositorios
+                // Crear el menú de registro con los repositorioos
                 var menuRegistro = new MenuRegistro(
                     usuarioRepo,
                     perfilRepo,

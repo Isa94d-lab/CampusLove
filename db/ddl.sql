@@ -7,6 +7,13 @@ INSERT INTO Genero (descripcion) VALUES
 ('Otro'),
 ('Prefiero no decir');
 
+INSERT INTO EstadoPerfil (descripcion) VALUES
+('Cazado'),
+('Es complicado'),
+('En una relación'),
+('Viudo/a'),
+('Soltero/a');
+
 INSERT INTO Profesion (descripcion) VALUES 
 ('Ingeniería de Sistemas'),
 ('Psicología'),

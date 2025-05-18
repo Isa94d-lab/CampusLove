@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Intereses (
 
 CREATE TABLE IF NOT EXISTS EstadoPerfil (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(10)
+    descripcion VARCHAR(20)
 );
 
 CREATE TABLE IF NOT EXISTS Perfil (

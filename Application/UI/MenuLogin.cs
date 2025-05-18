@@ -1,4 +1,5 @@
 using System;
+using CampusLove.Application.UI;
 using CampusLove.Infrastructure.Repositories;
 
 
@@ -29,6 +30,10 @@ namespace CampusLove.Application.UI
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\n¡Login exitoso!");
+
+                // Conexion si Login es existoso, con el menu del usuario
+                var menuUsuario = new MenuUsuario(nickname);
+                menuUsuario.MostrarMenu();
             }
             else
             {

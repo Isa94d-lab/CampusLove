@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/camper/CampusLove/CampusLove.csproj": {}
+    "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\CampusLove.csproj": {}
   },
   "projects": {
-    "/home/camper/CampusLove/CampusLove.csproj": {
+    "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\CampusLove.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/camper/CampusLove/CampusLove.csproj",
+        "projectUniqueName": "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\CampusLove.csproj",
         "projectName": "CampusLove",
-        "projectPath": "/home/camper/CampusLove/CampusLove.csproj",
-        "packagesPath": "/home/camper/.nuget/packages/",
-        "outputPath": "/home/camper/CampusLove/obj/",
+        "projectPath": "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\CampusLove.csproj",
+        "packagesPath": "C:\\Users\\andres\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/camper/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\andres\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -64,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.408/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

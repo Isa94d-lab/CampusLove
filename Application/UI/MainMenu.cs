@@ -1,10 +1,17 @@
-using CampusLove.Infrastructure.Configuration;
 using System.ComponentModel.Design;
+using CampusLove.Application.UI;
 
 namespace CampusLove.Application.UI
 {
     public class MainMenu
     {
+        private readonly MenuRegistro _menuRegistro;
+        private readonly MenuLogin _menuLogin;
+        public MainMenu(MenuRegistro menuRegistro, MenuLogin menuLogin)
+        {
+            _menuLogin = menuLogin;
+            _menuRegistro = menuRegistro;
+        }
         public void MostrarMenu()
         {
             bool salir = false;
@@ -16,7 +23,7 @@ namespace CampusLove.Application.UI
 
                 Console.WriteLine("\nMENÚ PRINCIPAL:");
                 Console.WriteLine("1. Registrarse");
-                Console.WriteLine("2. Iniciar Sesión");
+                Console.WriteLine("2. Iniciar Sesion");
                 Console.WriteLine("0. Salir");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -27,10 +34,10 @@ namespace CampusLove.Application.UI
                 switch (opcion)
                 {
                     case "1":
-                        // _menuRegistro.MostrarMenu();
+                        _menuRegistro.MostrarMenuAsync().GetAwaiter().GetResult();
                         break;
                     case "2":
-                        // _menuLogin.MostrarMenu();
+                        _menuLogin.MostrarLogin();
                         break;
                     case "0":
                         salir = true;
@@ -52,6 +59,7 @@ namespace CampusLove.Application.UI
             Console.ResetColor();
         }
 
+        
         public static void MostrarEncabezado(string titulo)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -64,4 +72,6 @@ namespace CampusLove.Application.UI
             Console.ResetColor();
         }
     }
+
+    
 }

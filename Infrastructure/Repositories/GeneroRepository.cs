@@ -55,7 +55,7 @@ namespace CampusLove.Infrastructure.Repositories
             return null;
         }
 
-        public async Task<bool> InsertAsync(Genero genero)
+        public async Task<int> InsertAsync(Genero genero)
         {
             if (genero == null)
                 throw new ArgumentNullException(nameof(genero));
@@ -68,9 +68,11 @@ namespace CampusLove.Infrastructure.Repositories
                 using var command = new MySqlCommand(query, _connection, transaction);
                 command.Parameters.AddWithValue("@Descripcion", genero.Descripcion);
 
-                var result = await command.ExecuteNonQueryAsync() > 0;
+                await command.ExecuteNonQueryAsync();
+                int generoId = (int)command.LastInsertedId;
+
                 await transaction.CommitAsync();
-                return result;
+                return generoId;
             }
             catch
             {
@@ -78,6 +80,7 @@ namespace CampusLove.Infrastructure.Repositories
                 throw;
             }
         }
+
 
         public async Task<bool> UpdateAsync(Genero genero)
         {
@@ -124,5 +127,7 @@ namespace CampusLove.Infrastructure.Repositories
                 throw;
             }
         }
+
+        
     }
 }

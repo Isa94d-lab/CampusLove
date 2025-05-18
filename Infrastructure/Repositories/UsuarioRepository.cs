@@ -61,12 +61,10 @@ namespace CampusLove.Infrastructure.Repositories
             return null;
         }
 
-        public async Task<bool> InsertAsync(Usuario usuario)
+        public async Task<int> InsertAsync(Usuario usuario)
         {
             if (usuario == null) throw new ArgumentNullException(nameof(usuario));
-
             const string query = "INSERT INTO Usuario (perfil_id, nickname, password) VALUES (@PerfilId, @Nickname, @Password)";
-
             using var transaction = await _connection.BeginTransactionAsync();
 
             try
@@ -76,9 +74,11 @@ namespace CampusLove.Infrastructure.Repositories
                 command.Parameters.AddWithValue("@Nickname", usuario.Nickname ?? string.Empty);
                 command.Parameters.AddWithValue("@Password", usuario.Password ?? string.Empty);
 
-                var result = await command.ExecuteNonQueryAsync() > 0;
+                await command.ExecuteNonQueryAsync();
+                int insertedId = (int)command.LastInsertedId;
                 await transaction.CommitAsync();
-                return result;
+
+                return insertedId;
             }
             catch
             {
@@ -134,6 +134,29 @@ namespace CampusLove.Infrastructure.Repositories
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+
+        public Usuario? ObtenerPorNickname(string nickname)
+        {
+            Usuario? usuario = null;
+            const string query = "SELECT id, perfil_id, nickname, password FROM Usuario WHERE nickname = @nickname";
+            using (var command = new MySqlCommand(query, _connection))
+            {
+                command.Parameters.AddWithValue("@nickname", nickname);
+                using var reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    usuario = new Usuario
+                    {
+                        Id = reader.GetInt32("id"),
+                        Nickname = reader.GetString("nickname"),
+                        Password = reader.GetString("password"),
+                        PerfilId = reader.GetInt32("perfil_id")
+                        // Asigna otras propiedades según tu modelo
+                    };
+                }
+            }
+            return usuario;
         }
     }
 }

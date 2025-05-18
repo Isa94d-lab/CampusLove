@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\1 Usuario\\Desktop\\BIBI\\CampusLove-1\\CampusLove.csproj": {}
+    "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\CampusLove.csproj": {}
   },
   "projects": {
-    "D:\\1 Usuario\\Desktop\\BIBI\\CampusLove-1\\CampusLove.csproj": {
+    "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\CampusLove.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\1 Usuario\\Desktop\\BIBI\\CampusLove-1\\CampusLove.csproj",
+        "projectUniqueName": "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\CampusLove.csproj",
         "projectName": "CampusLove",
-        "projectPath": "D:\\1 Usuario\\Desktop\\BIBI\\CampusLove-1\\CampusLove.csproj",
-        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\1 Usuario\\Desktop\\BIBI\\CampusLove-1\\obj\\",
+        "projectPath": "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\CampusLove.csproj",
+        "packagesPath": "C:\\Users\\andres\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andres\\Documents\\CAMPUS\\C#\\CampusLove\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\andres\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -64,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.409/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -17,7 +17,7 @@ namespace CampusLove.Infrastructure.Repositories
 
         public async Task<bool> DarLikeAsync(int usuarioId, int perfilId)
         {
-            const string query = "INSERT INTO Interaccion (usuario_id, perfil_id, reaccion, fecha) VALUES (@UsuarioId, @PerfilId, 'Like', CURDATE())";
+            const string query = "INSERT INTO Interaccion (usuario_id, perfil_id, reaccion, fechaLike) VALUES (@UsuarioId, @PerfilId, 'Like', CURDATE())";
 
             using var transaction = await _connection.BeginTransactionAsync();
 
@@ -40,7 +40,7 @@ namespace CampusLove.Infrastructure.Repositories
 
         public async Task<bool> DarDislikeAsync(int usuarioId, int perfilId)
         {
-            const string query = "INSERT INTO Interaccion (usuario_id, perfil_id, reaccion, fecha) VALUES (@UsuarioId, @PerfilId, 'Dislike', CURDATE())";
+            const string query = "INSERT INTO Interaccion (usuario_id, perfil_id, reaccion, fechaLike) VALUES (@UsuarioId, @PerfilId, 'Dislike', CURDATE())";
 
             using var transaction = await _connection.BeginTransactionAsync();
 
@@ -71,6 +71,27 @@ namespace CampusLove.Infrastructure.Repositories
 
             var result = Convert.ToInt32(await command.ExecuteScalarAsync());
             return result > 0;
+        }
+
+        public async Task GuardarLikeAsync(int usuarioId, int perfilLikeadoId, bool match)
+        {
+            const string query = @"
+                INSERT INTO LikesUsuario (usuario_id, perfil_likeado_id, fechaLike, match_r)
+                VALUES (@UsuarioId, @PerfilLikeadoId, @FechaLike, @MatchR)
+                ON DUPLICATE KEY UPDATE
+                    fechaLike = @FechaLike,
+                    match_r = @MatchR;
+            ";
+
+            using (var command = new MySqlCommand(query, _connection))
+            {
+                command.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                command.Parameters.AddWithValue("@PerfilLikeadoId", perfilLikeadoId);
+                command.Parameters.AddWithValue("@FechaLike", DateTime.Now);
+                command.Parameters.AddWithValue("@MatchR", match);
+
+                await command.ExecuteNonQueryAsync();
+            }
         }
     }
 }

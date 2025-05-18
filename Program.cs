@@ -32,8 +32,11 @@ namespace CampusLove
                     estadoPerfilRepo
                 );
 
-                // Crear el menu de login con el repositorio de usuario
-                var menuLogin = new MenuLogin(usuarioRepo, perfilRepo);
+                // Crear el repositorio de interacciones
+                var interaccionRepo = new InteraccionRepository(connection);
+
+                // Crear el menu de login con los repositorios requeridos
+                var menuLogin = new MenuLogin(usuarioRepo, perfilRepo, interaccionRepo);
 
                 // Crear menú principal con menu de registro y login inyectados
                 var mainMenu = new MainMenu(menuRegistro, menuLogin);

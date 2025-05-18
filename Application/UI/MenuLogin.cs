@@ -9,11 +9,13 @@ namespace CampusLove.Application.UI
     {
         private readonly UsuarioRepository _usuarioRepository;
         private readonly PerfilRepository _perfilRepository;
+        private readonly InteraccionRepository _interaccionRepository;
 
-        public MenuLogin(UsuarioRepository usuarioRepository, PerfilRepository perfilRepository)
+        public MenuLogin(UsuarioRepository usuarioRepository, PerfilRepository perfilRepository, InteraccionRepository interaccionRepository)
         {
             _usuarioRepository = usuarioRepository;
             _perfilRepository = perfilRepository;
+            _interaccionRepository = interaccionRepository;
         }
 
 
@@ -34,7 +36,7 @@ namespace CampusLove.Application.UI
                 Console.WriteLine("\n¡Login exitoso!");
 
                 // Conexion si Login es existoso, con el menu del usuario
-                var menuUsuario = new MenuUsuario(nickname, _usuarioRepository, _perfilRepository);
+                var menuUsuario = new MenuUsuario(nickname, _usuarioRepository, _perfilRepository, _interaccionRepository);
                 await menuUsuario.MostrarMenuAsync();
             }
             else

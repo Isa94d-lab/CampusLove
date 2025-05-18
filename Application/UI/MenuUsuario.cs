@@ -1,6 +1,7 @@
 using System;
 using CampusLove.Application.UI;
 using CampusLove.Domain.Entities;
+using CampusLove.Domain.Ports;
 using CampusLove.Infrastructure.Repositories;
 
 namespace CampusLove.Application.UI
@@ -9,10 +10,17 @@ namespace CampusLove.Application.UI
     {
         private readonly string _nickname;
         private readonly ViewPerfil _viewPerfil;
-        public MenuUsuario(string nickname, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository)
+        private readonly PerfilRepository _perfilRepository;
+        private readonly InteraccionRepository _interaccionRepository;
+        private readonly UsuarioRepository _usuarioRepository;
+
+        public MenuUsuario(string nickname, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository, InteraccionRepository interaccionRepository)
         {
             _nickname = nickname;
             _viewPerfil = new ViewPerfil(usuarioRepository, perfilRepository);
+            _perfilRepository = perfilRepository;
+            _interaccionRepository = interaccionRepository;
+            _usuarioRepository = usuarioRepository;
         }
 
 
@@ -25,8 +33,8 @@ namespace CampusLove.Application.UI
                 Console.Clear();
                 MostrarEncabezado($"Bienvenido/a {_nickname}");
 
-                Console.WriteLine("1. Ver mi perfil");
-                Console.WriteLine("2. Buscar Match ❤️");
+                Console.WriteLine("1. Mi perfil");
+                Console.WriteLine("2. Explorar perfiles ❤️");
                 Console.WriteLine("3. Configuracion");
                 Console.WriteLine("0. Cerrar sesion");
 
@@ -41,7 +49,7 @@ namespace CampusLove.Application.UI
                         await _viewPerfil.MostrarPerfilAsync(_nickname);
                         break;
                     case "2":
-                        BuscarPareja();
+                        await BuscarParejaAsync();
                         break;
                     case "3":
                         MostrarConfiguracion();
@@ -50,20 +58,68 @@ namespace CampusLove.Application.UI
                         salir = true;
                         break;
                     default:
-                        MostrarMensaje("Opcion invalida. Intente de nuevo.", ConsoleColor.Red);
-                        Console.ReadKey();
-                        break;
-                }
-            }
-
-            MostrarMensaje("\n¡Sesion cerrada con exito!", ConsoleColor.DarkCyan);
+                MostrarMensaje("Opcion invalida. Intente de nuevo.", ConsoleColor.Red);
+                Console.ReadKey();
+                break;
         }
+    }
+}
 
-        private void BuscarPareja()
+// Mueve el método fuera de MostrarMenuAsync
+public async Task BuscarParejaAsync()
+{
+    // 1. Obtener el usuario actual por nickname
+    var usuarioActual = _usuarioRepository.ObtenerPorNicknameAsync(_nickname);
+    if (usuarioActual == null)
+    {
+        MostrarMensaje("No se encontró el usuario actual.", ConsoleColor.Red);
+        Console.ReadKey();
+        return;
+    }
+
+    // 2. Obtener el perfil asociado al usuario actual
+    var perfilActual = await _perfilRepository.GetByIdAsync(usuarioActual.PerfilId);
+    if (perfilActual == null)
+    {
+        MostrarMensaje("No se encontró el perfil asociado al usuario.", ConsoleColor.Red);
+        Console.ReadKey();
+        return;
+    }
+
+    // 3. Obtener los perfiles filtrados por intereses, excluyendo el propio
+    var perfiles = await _perfilRepository.GetPerfilesParaBusquedaAsync(perfilActual);
+
+    foreach (var perfil in perfiles)
+    {
+        if (perfil.Id == perfilActual.Id) continue; // Omitir el propio perfil
+
+        Console.Clear();
+        Console.WriteLine("=== PERFIL SUGERIDO ===");
+        Console.WriteLine($"Nombre: {perfil.Nombre}");
+        Console.WriteLine($"Edad: {perfil.Edad}");
+        Console.WriteLine($"Género: {perfil.Genero}");
+        Console.WriteLine($"Gustos: {perfil.Gustos}");
+        Console.WriteLine($"Descripción: {perfil.Frase}");
+
+        Console.WriteLine("\n¿Te gusta este perfil?");
+        Console.WriteLine("1. Sí");
+        Console.WriteLine("2. No");
+        Console.WriteLine("0. Salir de búsqueda");
+
+        var opcion = Console.ReadLine();
+        if (opcion == "1" || opcion == "2")
         {
-            MostrarMensaje("Aqui iria la logica para buscar pareja. 🥰", ConsoleColor.Magenta);
-            Console.ReadKey();
+            bool like = opcion == "1";
+            await _interaccionRepository.GuardarLikeAsync(usuarioActual.Id, perfil.UsuarioId, like);
         }
+        else if (opcion == "0")
+        {
+            break;
+        }
+    }
+    Console.WriteLine("Fin de la búsqueda. Presiona cualquier tecla para volver al menú.");
+    Console.ReadKey();
+}
 
         private void MostrarConfiguracion()
         {

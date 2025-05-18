@@ -225,6 +225,59 @@ namespace CampusLove.Infrastructure.Repositories
             }
         }
 
+        public async Task<IEnumerable<Perfil>> GetPerfilesParaBusquedaAsync(Perfil perfilActual)
+        {
+            var perfiles = new List<Perfil>();
+
+            // 1. Obtener los intereses del perfil actual
+            var interesesActual = new List<int>();
+            string interesesQuery = "SELECT intereses_id FROM PerfilIntereses WHERE perfil_id = @PerfilId";
+            using (var interesesCmd = new MySqlCommand(interesesQuery, _connection))
+            {
+                interesesCmd.Parameters.AddWithValue("@PerfilId", perfilActual.Id);
+                using (var reader = await interesesCmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        interesesActual.Add(Convert.ToInt32(reader["InteresesId"]));
+                    }
+                }
+            }
+
+            if (interesesActual.Count == 0)
+                return perfiles; // No hay intereses, no hay sugerencias
+
+            // 2. Buscar perfiles compatibles (que tengan al menos un interés en común y no sean el propio)
+            string interesesIds = string.Join(",", interesesActual);
+            string query = $@"
+                SELECT DISTINCT p.*
+                FROM Perfil p
+                INNER JOIN PerfilIntereses pi ON p.Id = pi.perfil_id
+                WHERE p.Id <> @IdActual
+                AND pi.InteresesId IN ({interesesIds})
+                -- Filtro de género si lo necesitas, por ejemplo:
+                -- AND (p.Genero = 'masculino' OR p.Genero = 'femenino')
+            ";
+
+            using (var command = new MySqlCommand(query, _connection))
+            {
+                command.Parameters.AddWithValue("@IdActual", perfilActual.Id);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        perfiles.Add(new Perfil
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            // Asigna aquí los demás campos de Perfil
+                        });
+                    }
+                }
+            }
+            return perfiles;
+        }
+
         internal void Guardar(Perfil perfil)
         {
             throw new NotImplementedException();

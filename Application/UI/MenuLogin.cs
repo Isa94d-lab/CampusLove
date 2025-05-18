@@ -1,4 +1,5 @@
 using System;
+using CampusLove.Application.UI;
 using CampusLove.Infrastructure.Repositories;
 
 
@@ -7,14 +8,16 @@ namespace CampusLove.Application.UI
     public class MenuLogin
     {
         private readonly UsuarioRepository _usuarioRepository;
+        private readonly PerfilRepository _perfilRepository;
 
-        public MenuLogin(UsuarioRepository usuarioRepository)
+        public MenuLogin(UsuarioRepository usuarioRepository, PerfilRepository perfilRepository)
         {
             _usuarioRepository = usuarioRepository;
+            _perfilRepository = perfilRepository;
         }
 
 
-        public bool MostrarLogin()
+        public async Task<bool> MostrarLoginAsync()
         {
             Console.Clear();
             MostrarEncabezado(" LOGIN ");
@@ -29,6 +32,10 @@ namespace CampusLove.Application.UI
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\n¡Login exitoso!");
+
+                // Conexion si Login es existoso, con el menu del usuario
+                var menuUsuario = new MenuUsuario(nickname, _usuarioRepository, _perfilRepository);
+                await menuUsuario.MostrarMenuAsync();
             }
             else
             {
@@ -46,7 +53,7 @@ namespace CampusLove.Application.UI
 
         private bool VerificarCredenciales(string nickname, string password)
         {
-            var usuario = _usuarioRepository.ObtenerPorNickname(nickname);
+            var usuario = _usuarioRepository.ObtenerPorNicknameAsync(nickname);
             return usuario != null && usuario.Password == password;
         }
 

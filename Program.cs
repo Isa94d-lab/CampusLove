@@ -7,13 +7,13 @@ namespace CampusLove
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             try
             {
-                // Obtener la conexión a la base de datos
+                // Obtener la conexion a la base de datos
                 var connection = DatabaseConfig.GetConnection();
 
                 // Crear todos los repositorios requeridos por MenuRegistro
@@ -23,7 +23,7 @@ namespace CampusLove
                 var generoRepo = new GeneroRepository(connection);
                 var estadoPerfilRepo = new EstadoPerfilRepository(connection);
 
-                // Crear el menú de registro con los repositorios
+                // Crear el menu de registro con los repositorios
                 var menuRegistro = new MenuRegistro(
                     usuarioRepo,
                     perfilRepo,
@@ -32,14 +32,14 @@ namespace CampusLove
                     estadoPerfilRepo
                 );
 
-                // Crear el menú de login con el repositorio de usuario
-                var menuLogin = new MenuLogin(usuarioRepo);
+                // Crear el menu de login con el repositorio de usuario
+                var menuLogin = new MenuLogin(usuarioRepo, perfilRepo);
 
-                // Crear menú principal con menú de registro y login inyectados
+                // Crear menú principal con menu de registro y login inyectados
                 var mainMenu = new MainMenu(menuRegistro, menuLogin);
 
-                // Mostrar el menú
-                mainMenu.MostrarMenu();
+                // Mostrar el menu
+                await mainMenu.MostrarMenu();
             }
             catch (Exception ex)
             {

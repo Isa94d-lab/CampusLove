@@ -8,13 +8,15 @@ namespace CampusLove.Application.UI
     public class MenuUsuario
     {
         private readonly string _nickname;
-
-        public MenuUsuario(string nickname)
+        private readonly ViewPerfil _viewPerfil;
+        public MenuUsuario(string nickname, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository)
         {
             _nickname = nickname;
+            _viewPerfil = new ViewPerfil(usuarioRepository, perfilRepository);
         }
 
-        public void MostrarMenu()
+
+        public async Task MostrarMenuAsync()
         {
             bool salir = false;
 
@@ -36,7 +38,7 @@ namespace CampusLove.Application.UI
                 switch (opcion)
                 {
                     case "1":
-                        MostrarPerfil();
+                        await _viewPerfil.MostrarPerfilAsync(_nickname);
                         break;
                     case "2":
                         BuscarPareja();
@@ -55,13 +57,6 @@ namespace CampusLove.Application.UI
             }
 
             MostrarMensaje("\n¡Sesion cerrada con exito!", ConsoleColor.DarkCyan);
-        }
-
-        private void MostrarPerfil()
-        {
-            // Aqui se cargara la informacion del perfil del usuario ingresada en la base de datos
-            MostrarMensaje("Aqui iria la logica para mostrar el perfil.", ConsoleColor.Cyan);
-            Console.ReadKey();
         }
 
         private void BuscarPareja()

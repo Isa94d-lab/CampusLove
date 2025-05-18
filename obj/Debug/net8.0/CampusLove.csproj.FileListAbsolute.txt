@@ -127,6 +127,12 @@ C:\Users\andres\Documents\CAMPUS\C#\CampusLove\obj\Debug\net8.0\refint\CampusLov
 C:\Users\andres\Documents\CAMPUS\C#\CampusLove\obj\Debug\net8.0\CampusLove.pdb
 C:\Users\andres\Documents\CAMPUS\C#\CampusLove\obj\Debug\net8.0\CampusLove.genruntimeconfig.cache
 C:\Users\andres\Documents\CAMPUS\C#\CampusLove\obj\Debug\net8.0\ref\CampusLove.dll
+D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.csproj.AssemblyReference.cache
+D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.GeneratedMSBuildEditorConfig.editorconfig
+D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.AssemblyInfoInputs.cache
+D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.AssemblyInfo.cs
+D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.csproj.CoreCompileInputs.cache
+D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.sourcelink.json
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\bin\Debug\net8.0\CampusLove.exe
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\bin\Debug\net8.0\CampusLove.deps.json
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\bin\Debug\net8.0\CampusLove.runtimeconfig.json
@@ -156,12 +162,6 @@ D:\1 Usuario\Desktop\BIBI\CampusLove-1\bin\Debug\net8.0\runtimes\win\lib\net8.0\
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
-D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.csproj.AssemblyReference.cache
-D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.GeneratedMSBuildEditorConfig.editorconfig
-D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.AssemblyInfoInputs.cache
-D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.AssemblyInfo.cs
-D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.csproj.CoreCompileInputs.cache
-D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.sourcelink.json
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.csproj.Up2Date
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\CampusLove.dll
 D:\1 Usuario\Desktop\BIBI\CampusLove-1\obj\Debug\net8.0\refint\CampusLove.dll

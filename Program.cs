@@ -7,7 +7,7 @@ namespace CampusLove
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
@@ -33,13 +33,13 @@ namespace CampusLove
                 );
 
                 // Crear el menú de login con el repositorio de usuario
-                var menuLogin = new MenuLogin(usuarioRepo);
+                var menuLogin = new MenuLogin(usuarioRepo, perfilRepo);
 
                 // Crear menú principal con menú de registro y login inyectados
                 var mainMenu = new MainMenu(menuRegistro, menuLogin);
 
                 // Mostrar el menú
-                mainMenu.MostrarMenu();
+                await mainMenu.MostrarMenu();
             }
             catch (Exception ex)
             {

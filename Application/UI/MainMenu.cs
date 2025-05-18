@@ -1,4 +1,5 @@
 using System.ComponentModel.Design;
+using System.Threading.Tasks;
 using CampusLove.Application.UI;
 
 namespace CampusLove.Application.UI
@@ -12,7 +13,7 @@ namespace CampusLove.Application.UI
             _menuLogin = menuLogin;
             _menuRegistro = menuRegistro;
         }
-        public void MostrarMenu()
+        public async Task MostrarMenu()
         {
             bool salir = false;
 
@@ -33,11 +34,12 @@ namespace CampusLove.Application.UI
 
                 switch (opcion)
                 {
+                    // Todos los archivos interconectados son Asyncronicos. Es necesario que todas las conexiones sean asyncronicas tambien
                     case "1":
-                        _menuRegistro.MostrarMenuAsync().GetAwaiter().GetResult();
+                        await _menuRegistro.MostrarMenuAsync();
                         break;
                     case "2":
-                        _menuLogin.MostrarLogin();
+                        await _menuLogin.MostrarLoginAsync();
                         break;
                     case "0":
                         salir = true;

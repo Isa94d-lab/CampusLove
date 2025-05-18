@@ -136,7 +136,7 @@ namespace CampusLove.Infrastructure.Repositories
             }
         }
 
-        public Usuario? ObtenerPorNickname(string nickname)
+        public Usuario? ObtenerPorNicknameAsync(string nickname)
         {
             Usuario? usuario = null;
             const string query = "SELECT id, perfil_id, nickname, password FROM Usuario WHERE nickname = @nickname";

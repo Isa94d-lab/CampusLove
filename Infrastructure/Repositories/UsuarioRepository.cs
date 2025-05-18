@@ -135,5 +135,28 @@ namespace CampusLove.Infrastructure.Repositories
                 throw;
             }
         }
+
+        public Usuario? ObtenerPorNickname(string nickname)
+        {
+            Usuario? usuario = null;
+            const string query = "SELECT id, perfil_id, nickname, password FROM Usuario WHERE nickname = @nickname";
+            using (var command = new MySqlCommand(query, _connection))
+            {
+                command.Parameters.AddWithValue("@nickname", nickname);
+                using var reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    usuario = new Usuario
+                    {
+                        Id = reader.GetInt32("id"),
+                        Nickname = reader.GetString("nickname"),
+                        Password = reader.GetString("password"),
+                        PerfilId = reader.GetInt32("perfil_id")
+                        // Asigna otras propiedades según tu modelo
+                    };
+                }
+            }
+            return usuario;
+        }
     }
 }

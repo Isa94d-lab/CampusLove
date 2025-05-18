@@ -1,17 +1,17 @@
 using System.ComponentModel.Design;
+using CampusLove.Application.UI;
 
 namespace CampusLove.Application.UI
 {
     public class MainMenu
     {
         private readonly MenuRegistro _menuRegistro;
-        // private readonly MenuLogin _menuLogin;
-
-        public MainMenu(MenuRegistro menuRegistro)
+        private readonly MenuLogin _menuLogin;
+        public MainMenu(MenuRegistro menuRegistro, MenuLogin menuLogin)
         {
+            _menuLogin = menuLogin;
             _menuRegistro = menuRegistro;
         }
-
         public void MostrarMenu()
         {
             bool salir = false;
@@ -35,6 +35,9 @@ namespace CampusLove.Application.UI
                 {
                     case "1":
                         _menuRegistro.MostrarMenuAsync().GetAwaiter().GetResult();
+                        break;
+                    case "2":
+                        _menuLogin.MostrarLogin();
                         break;
                     case "0":
                         salir = true;
@@ -69,4 +72,6 @@ namespace CampusLove.Application.UI
             Console.ResetColor();
         }
     }
+
+    
 }

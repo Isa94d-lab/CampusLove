@@ -23,7 +23,7 @@ namespace CampusLove
                 var generoRepo = new GeneroRepository(connection);
                 var estadoPerfilRepo = new EstadoPerfilRepository(connection);
 
-                // Crear el menú de registro con los repositorioos
+                // Crear el menú de registro con los repositorios
                 var menuRegistro = new MenuRegistro(
                     usuarioRepo,
                     perfilRepo,
@@ -32,8 +32,11 @@ namespace CampusLove
                     estadoPerfilRepo
                 );
 
-                // Crear menú principal con menú de registro inyectado
-                var mainMenu = new MainMenu(menuRegistro);
+                // Crear el menú de login con el repositorio de usuario
+                var menuLogin = new MenuLogin(usuarioRepo);
+
+                // Crear menú principal con menú de registro y login inyectados
+                var mainMenu = new MainMenu(menuRegistro, menuLogin);
 
                 // Mostrar el menú
                 mainMenu.MostrarMenu();

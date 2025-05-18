@@ -82,7 +82,7 @@ namespace CampusLove.Application.UI
                 Edad = edad,
                 Frase = frase,
                 Gustos = gustos,
-                Coins = 0,
+                Coins = 10,
                 ProfesionId = profesionSeleccionada.Id,
                 GeneroId = generoSeleccionado.Id,
                 EstadoPerfilId = estadoSeleccionado.Id

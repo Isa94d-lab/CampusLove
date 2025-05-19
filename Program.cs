@@ -36,14 +36,14 @@ namespace CampusLove
 
                 var interaccionRepo = new InteraccionRepository(connection);
 
-                var menuLogin = new MenuLogin(usuarioRepo, perfilRepo, interaccionRepo, likesDiariosRepo); // <- pásalo aquí también
+                var menuLogin = new MenuLogin(usuarioRepo, perfilRepo, interaccionRepo, likesDiariosRepo); 
 
                 var estadisticasRepo = new EstadisticasRepository(connection);
                 var viewEstadisticas = new ViewEstadisticas(estadisticasRepo);
 
                 var mainMenu = new MainMenu(menuRegistro, menuLogin, viewEstadisticas);
 
-                await mainMenu.MostrarMenu(); // <- ahora sí, correctamente al final
+                await mainMenu.MostrarMenu(); 
             }
             catch (Exception ex)
             {

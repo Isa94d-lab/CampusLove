@@ -5,7 +5,7 @@ USE CampusLove;
 
 CREATE TABLE IF NOT EXISTS Genero (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(25)
+    descripcion VARCHAR(15)
 );
 
 CREATE TABLE IF NOT EXISTS Profesion (

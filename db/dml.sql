@@ -74,10 +74,12 @@ CREATE TABLE IF NOT EXISTS Interaccion (
     CONSTRAINT perfil_interaccion_FK FOREIGN KEY (perfil_id) REFERENCES Perfil(id) 
 );
 
+
 CREATE TABLE IF NOT EXISTS LikesDiarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
     perfil_id INT,
     cantidad INT,
+    fecha_actualizacion DATE,
     CONSTRAINT perfil_likesDiarios_FK FOREIGN KEY (perfil_id) REFERENCES Perfil(id) ON UPDATE CASCADE
 );
 

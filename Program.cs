@@ -20,8 +20,6 @@ namespace CampusLove
                 var profesionRepo = new ProfesionRepository(connection);
                 var generoRepo = new GeneroRepository(connection);
                 var estadoPerfilRepo = new EstadoPerfilRepository(connection);
-
-                // Aquí creas los repositorios que te faltaban
                 var interesesRepo = new InteresesRepository(connection);
                 var perfilInteresesRepo = new PerfilInteresesRepository(connection);
 

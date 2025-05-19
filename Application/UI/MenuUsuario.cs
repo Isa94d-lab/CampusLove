@@ -81,7 +81,7 @@ public async Task BuscarParejaAsync()
     var perfilActual = await _perfilRepository.GetByIdAsync(usuarioActual.PerfilId);
     if (perfilActual == null)
     {
-        MostrarMensaje("No se encontró el perfil asociado al usuario.", ConsoleColor.Red);
+        MostrarMensaje("No se encontro el perfil asociado al usuario.", ConsoleColor.Red);
         Console.ReadKey();
         return;
     }
@@ -94,28 +94,44 @@ public async Task BuscarParejaAsync()
         if (perfil.Id == perfilActual.Id) continue; // Omitir el propio perfil
 
         Console.Clear();
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
         Console.WriteLine("=== PERFIL SUGERIDO ===");
+        Console.ResetColor();
         Console.WriteLine($"Nombre: {perfil.Nombre}");
         Console.WriteLine($"Apellido: {perfil.Apellido}");
         Console.WriteLine($"Edad: {perfil.Edad}");
         Console.WriteLine($"Gustos: {perfil.Gustos}");
         Console.WriteLine($"Descripción: {perfil.Frase}");
 
-        Console.WriteLine("\n¿Te gusta este perfil?");
-        Console.WriteLine("1. Sí");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("\n¿Te gusta este perfil? ->");
+        Console.ResetColor();
+        Console.WriteLine("1. Si");
         Console.WriteLine("2. No");
         Console.WriteLine("0. Salir de búsqueda");
 
         var opcion = Console.ReadLine();
-        if (opcion == "1" || opcion == "2")
-        {
-            bool like = opcion == "1";
-            await _interaccionRepository.GuardarLikeAsync(usuarioActual.Id, perfil.UsuarioId, like);
+                if (opcion == "1" || opcion == "2")
+                {
+                    bool like = opcion == "1";
+                    await _interaccionRepository.GuardarLikeAsync(usuarioActual.Id, perfil.Id, like);
+
+            
+                        if (like)
+                {
+                    var perfilLikeado = await _perfilRepository.GetByIdAsync(perfil.Id);
+                    if (perfilLikeado != null)
+                    {
+                        // Cantidad de coins adicionadas de haber recibido un like
+                        perfilLikeado.Coins += 25;
+                        await _perfilRepository.ActualizarCoinsAsync(perfilLikeado); // este método lo crearemos
+                    }
+                }
         }
-        else if (opcion == "0")
-        {
-            break;
-        }
+                else if (opcion == "0")
+                {
+                    break;
+                }
     }
     Console.WriteLine("Fin de la búsqueda. Presiona cualquier tecla para volver al menú.");
     Console.ReadKey();

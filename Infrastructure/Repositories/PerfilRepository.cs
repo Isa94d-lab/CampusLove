@@ -150,7 +150,7 @@ namespace CampusLove.Infrastructure.Repositories
                 int perfilId = (int)command.LastInsertedId;
 
                 await transaction.CommitAsync();
-                return perfilId; 
+                return perfilId;
             }
             catch
             {
@@ -290,5 +290,30 @@ namespace CampusLove.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        // Funcion encargada de actualizar los coins cada vez que se le de like al respectivo usuario/perfil
+        public async Task ActualizarCoinsAsync(Perfil perfil)
+        {
+            const string query = "UPDATE Perfil SET coins = @Coins WHERE id = @Id";
+
+            using var transaction = await _connection.BeginTransactionAsync();
+
+            try
+            {
+                using var command = new MySqlCommand(query, _connection, transaction);
+                command.Parameters.AddWithValue("@Coins", perfil.Coins);
+                command.Parameters.AddWithValue("@Id", perfil.Id);
+
+                await command.ExecuteNonQueryAsync();
+
+                await transaction.CommitAsync();
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+
     }
 }

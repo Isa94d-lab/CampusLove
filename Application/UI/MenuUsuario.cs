@@ -3,6 +3,7 @@ using CampusLove.Application.UI;
 using CampusLove.Domain.Entities;
 using CampusLove.Domain.Ports;
 using CampusLove.Infrastructure.Repositories;
+using MySql.Data.MySqlClient;
 
 namespace CampusLove.Application.UI
 {
@@ -36,6 +37,7 @@ namespace CampusLove.Application.UI
                 Console.WriteLine("1. Mi perfil");
                 Console.WriteLine("2. Explorar perfiles ❤️");
                 Console.WriteLine("3. Configuracion");
+                Console.WriteLine("4. Ver mis matches");
                 Console.WriteLine("0. Cerrar sesion");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -54,6 +56,9 @@ namespace CampusLove.Application.UI
                     case "3":
                         MostrarConfiguracion();
                         break;
+                    case "4":
+                        await VerMisMatchesAsync();
+                        break;
                     case "0":
                         salir = true;
                         break;
@@ -65,7 +70,6 @@ namespace CampusLove.Application.UI
     }
 }
 
-// Mueve el método fuera de MostrarMenuAsync
 public async Task BuscarParejaAsync()
 {
     // 1. Obtener el usuario actual por nickname
@@ -134,6 +138,54 @@ public async Task BuscarParejaAsync()
                 }
     }
     Console.WriteLine("Fin de la búsqueda. Presiona cualquier tecla para volver al menú.");
+    Console.ReadKey();
+}
+
+public async Task VerMisMatchesAsync()
+{
+    // 1. Obtener el usuario actual y su perfil_id
+    var usuarioActual = _usuarioRepository.ObtenerPorNicknameAsync(_nickname);
+    if (usuarioActual == null)
+    {
+        MostrarMensaje("No se encontró el usuario actual.", ConsoleColor.Red);
+        Console.ReadKey();
+        return;
+    }
+
+    int perfilId = usuarioActual.PerfilId;
+
+    // 2. Buscar matches donde el usuario participa
+    const string query = @"
+        SELECT m.*, p.nombre, p.apellido
+        FROM Matchs m
+        JOIN Perfil p ON (p.id = m.perfil1_id OR p.id = m.perfil2_id)
+        WHERE (m.perfil1_id = @PerfilId OR m.perfil2_id = @PerfilId)
+        AND p.id <> @PerfilId
+    ";
+
+    using (var command = new MySqlCommand(query, _perfilRepository.Connection))
+    {
+        command.Parameters.AddWithValue("@PerfilId", perfilId);
+
+        using (var reader = await command.ExecuteReaderAsync())
+        {
+            Console.Clear();
+            Console.WriteLine("=== TUS MATCHES ===");
+            bool hayMatches = false;
+            while (await reader.ReadAsync())
+            {
+                hayMatches = true;
+                Console.WriteLine($"Nombre: {reader["nombre"]} {reader["apellido"]}");
+                Console.WriteLine($"Fecha del match: {Convert.ToDateTime(reader["fecha"]).ToShortDateString()}");
+                Console.WriteLine(new string('-', 30));
+            }
+            if (!hayMatches)
+            {
+                Console.WriteLine("Aún no tienes matches.");
+            }
+        }
+    }
+    Console.WriteLine("Presiona cualquier tecla para volver al menú.");
     Console.ReadKey();
 }
 

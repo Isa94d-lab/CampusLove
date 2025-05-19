@@ -16,6 +16,8 @@ namespace CampusLove.Infrastructure.Repositories
             _connection = connection;
         }
 
+        public MySqlConnection Connection => _connection;
+
         public async Task<IEnumerable<Perfil>> GetAllAsync()
         {
             var perfiles = new List<Perfil>();

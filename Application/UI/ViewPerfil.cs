@@ -44,7 +44,7 @@ namespace CampusLove.Application.UI
             Console.WriteLine($"👤 Nombre: {perfil.Nombre} {perfil.Apellido}");
             Console.WriteLine($"🎂 Edad: {perfil.Edad}");
             Console.WriteLine($"💼 Profesión: {perfil.Profesion?.Descripcion}");
-            Console.WriteLine($"🚻 Género: {perfil.Genero?.Descripcion}");
+            Console.WriteLine($"🚻 Genero: {perfil.Genero?.Descripcion}");
             Console.WriteLine($"📌 Estado del Perfil: {perfil.EstadoPerfil?.Descripcion}");
             Console.WriteLine($"📝 Frase: {perfil.Frase}");
             Console.WriteLine($"🎯 Gustos: {perfil.Gustos}");

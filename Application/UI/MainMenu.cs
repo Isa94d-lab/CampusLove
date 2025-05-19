@@ -8,10 +8,12 @@ namespace CampusLove.Application.UI
     {
         private readonly MenuRegistro _menuRegistro;
         private readonly MenuLogin _menuLogin;
-        public MainMenu(MenuRegistro menuRegistro, MenuLogin menuLogin)
+        private readonly ViewEstadisticas _viewEstadisticas;
+        public MainMenu(MenuRegistro menuRegistro, MenuLogin menuLogin, ViewEstadisticas viewEstadisticas)
         {
             _menuLogin = menuLogin;
             _menuRegistro = menuRegistro;
+            _viewEstadisticas = viewEstadisticas;
         }
         public async Task MostrarMenu()
         {
@@ -25,6 +27,8 @@ namespace CampusLove.Application.UI
                 Console.WriteLine("\nMENÚ PRINCIPAL:");
                 Console.WriteLine("1. Registrarse");
                 Console.WriteLine("2. Iniciar Sesion");
+                Console.WriteLine("3. Mostrar estadisticas del sistema");
+
                 Console.WriteLine("0. Salir");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -40,6 +44,9 @@ namespace CampusLove.Application.UI
                         break;
                     case "2":
                         await _menuLogin.MostrarLoginAsync();
+                        break;
+                    case "3":
+                        await _viewEstadisticas.MostrarEstadisticasAsync();
                         break;
                     case "0":
                         salir = true;

@@ -70,124 +70,125 @@ namespace CampusLove.Application.UI
     }
 }
 
-public async Task BuscarParejaAsync()
-{
-    // 1. Obtener el usuario actual por nickname
-    var usuarioActual = _usuarioRepository.ObtenerPorNicknameAsync(_nickname);
-    if (usuarioActual == null)
-    {
-        MostrarMensaje("No se encontró el usuario actual.", ConsoleColor.Red);
-        Console.ReadKey();
-        return;
-    }
+        public async Task BuscarParejaAsync()
+        {
+            // 1. Obtener el usuario actual por nickname
+            var usuarioActual = _usuarioRepository.ObtenerPorNicknameAsync(_nickname);
+            if (usuarioActual == null)
+            {
+                MostrarMensaje("No se encontró el usuario actual.", ConsoleColor.Red);
+                Console.ReadKey();
+                return;
+            }
 
-    // 2. Obtener el perfil asociado al usuario actual
-    var perfilActual = await _perfilRepository.GetByIdAsync(usuarioActual.PerfilId);
-    if (perfilActual == null)
-    {
-        MostrarMensaje("No se encontro el perfil asociado al usuario.", ConsoleColor.Red);
-        Console.ReadKey();
-        return;
-    }
+            // 2. Obtener el perfil asociado al usuario actual
+            var perfilActual = await _perfilRepository.GetByIdAsync(usuarioActual.PerfilId);
+            if (perfilActual == null)
+            {
+                MostrarMensaje("No se encontro el perfil asociado al usuario.", ConsoleColor.Red);
+                Console.ReadKey();
+                return;
+            }
 
-    // 3. Obtener los perfiles filtrados por intereses, excluyendo el propio
-    var perfiles = await _perfilRepository.GetPerfilesParaBusquedaAsync(perfilActual);
+            // 3. Obtener los perfiles filtrados por intereses, excluyendo el propio
+            var perfiles = await _perfilRepository.GetPerfilesParaBusquedaAsync(perfilActual);
 
-    foreach (var perfil in perfiles)
-    {
-        if (perfil.Id == perfilActual.Id) continue; // Omitir el propio perfil
+            foreach (var perfil in perfiles)
+            {
+                if (perfil.Id == perfilActual.Id) continue; // Omitir el propio perfil
 
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.DarkCyan;
-        Console.WriteLine("=== PERFIL SUGERIDO ===");
-        Console.ResetColor();
-        Console.WriteLine($"Nombre: {perfil.Nombre}");
-        Console.WriteLine($"Apellido: {perfil.Apellido}");
-        Console.WriteLine($"Edad: {perfil.Edad}");
-        Console.WriteLine($"Gustos: {perfil.Gustos}");
-        Console.WriteLine($"Descripción: {perfil.Frase}");
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("=== PERFIL SUGERIDO ===");
+                Console.ResetColor();
+                Console.WriteLine($"Nombre: {perfil.Nombre}");
+                Console.WriteLine($"Apellido: {perfil.Apellido}");
+                Console.WriteLine($"Edad: {perfil.Edad}");
+                Console.WriteLine($"Gustos: {perfil.Gustos}");
+                Console.WriteLine($"Descripción: {perfil.Frase}");
 
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\n¿Te gusta este perfil? ->");
-        Console.ResetColor();
-        Console.WriteLine("1. Si");
-        Console.WriteLine("2. No");
-        Console.WriteLine("0. Salir de búsqueda");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n¿Te gusta este perfil? ->");
+                Console.ResetColor();
+                Console.WriteLine("1. Si");
+                Console.WriteLine("2. No");
+                Console.WriteLine("0. Salir de búsqueda");
 
-        var opcion = Console.ReadLine();
+                var opcion = Console.ReadLine();
                 if (opcion == "1" || opcion == "2")
                 {
                     bool like = opcion == "1";
                     await _interaccionRepository.GuardarLikeAsync(usuarioActual.Id, perfil.Id, like);
 
-            
-                        if (like)
-                {
-                    var perfilLikeado = await _perfilRepository.GetByIdAsync(perfil.Id);
-                    if (perfilLikeado != null)
+
+                    if (like)
                     {
-                        // Cantidad de coins adicionadas de haber recibido un like
-                        perfilLikeado.Coins += 25;
-                        await _perfilRepository.ActualizarCoinsAsync(perfilLikeado); // este método lo crearemos
+                        var perfilLikeado = await _perfilRepository.GetByIdAsync(perfil.Id);
+                        if (perfilLikeado != null)
+                        {
+                            // Cantidad de coins adicionadas de haber recibido un like
+                            perfilLikeado.Coins += 25;
+                            await _perfilRepository.ActualizarCoinsAsync(perfilLikeado); // este método lo crearemos
+                        }
                     }
                 }
-        }
                 else if (opcion == "0")
                 {
                     break;
                 }
-    }
-    Console.WriteLine("Fin de la búsqueda. Presiona cualquier tecla para volver al menú.");
-    Console.ReadKey();
-}
-
-public async Task VerMisMatchesAsync()
-{
-    // 1. Obtener el usuario actual y su perfil_id
-    var usuarioActual = _usuarioRepository.ObtenerPorNicknameAsync(_nickname);
-    if (usuarioActual == null)
-    {
-        MostrarMensaje("No se encontró el usuario actual.", ConsoleColor.Red);
-        Console.ReadKey();
-        return;
-    }
-
-    int perfilId = usuarioActual.PerfilId;
-
-    // 2. Buscar matches donde el usuario participa
-    const string query = @"
-        SELECT m.*, p.nombre, p.apellido
-        FROM Matchs m
-        JOIN Perfil p ON (p.id = m.perfil1_id OR p.id = m.perfil2_id)
-        WHERE (m.perfil1_id = @PerfilId OR m.perfil2_id = @PerfilId)
-        AND p.id <> @PerfilId
-    ";
-
-    using (var command = new MySqlCommand(query, _perfilRepository.Connection))
-    {
-        command.Parameters.AddWithValue("@PerfilId", perfilId);
-
-        using (var reader = await command.ExecuteReaderAsync())
-        {
+            }
+            Console.WriteLine("Fin de la búsqueda. Presiona cualquier tecla para volver al menú.");
+            Console.ReadKey();
             Console.Clear();
-            Console.WriteLine("=== TUS MATCHES ===");
-            bool hayMatches = false;
-            while (await reader.ReadAsync())
-            {
-                hayMatches = true;
-                Console.WriteLine($"Nombre: {reader["nombre"]} {reader["apellido"]}");
-                Console.WriteLine($"Fecha del match: {Convert.ToDateTime(reader["fecha"]).ToShortDateString()}");
-                Console.WriteLine(new string('-', 30));
-            }
-            if (!hayMatches)
-            {
-                Console.WriteLine("Aún no tienes matches.");
-            }
-        }
-    }
-    Console.WriteLine("Presiona cualquier tecla para volver al menú.");
-    Console.ReadKey();
 }
+
+        public async Task VerMisMatchesAsync()
+        {
+            // 1. Obtener el usuario actual y su perfil_id
+                    var usuarioActual = _usuarioRepository.ObtenerPorNicknameAsync(_nickname);
+            if (usuarioActual == null)
+            {
+                MostrarMensaje("No se encontró el usuario actual.", ConsoleColor.Red);
+                Console.ReadKey();
+                return;
+            }
+
+            int perfilId = usuarioActual.PerfilId;
+
+            // 2. Buscar matches donde el usuario participa
+            const string query = @"
+                SELECT m.*, p.nombre, p.apellido
+                FROM Matchs m
+                JOIN Perfil p ON (p.id = m.perfil1_id OR p.id = m.perfil2_id)
+                WHERE (m.perfil1_id = @PerfilId OR m.perfil2_id = @PerfilId)
+                AND p.id <> @PerfilId
+            ";
+
+            using (var command = new MySqlCommand(query, _perfilRepository.Connection))
+            {
+                command.Parameters.AddWithValue("@PerfilId", perfilId);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    Console.Clear();
+                    Console.WriteLine("=== TUS MATCHES ===");
+                    bool hayMatches = false;
+                    while (await reader.ReadAsync())
+                    {
+                        hayMatches = true;
+                        Console.WriteLine($"Nombre: {reader["nombre"]} {reader["apellido"]}");
+                        Console.WriteLine($"Fecha del match: {Convert.ToDateTime(reader["fecha"]).ToShortDateString()}");
+                        Console.WriteLine(new string('-', 30));
+                    }
+                    if (!hayMatches)
+                    {
+                        Console.WriteLine("Aún no tienes matches.");
+                    }
+                }
+            }
+            Console.WriteLine("Presiona cualquier tecla para volver al menú.");
+            Console.ReadKey();
+        }
 
         private void MostrarConfiguracion()
         {

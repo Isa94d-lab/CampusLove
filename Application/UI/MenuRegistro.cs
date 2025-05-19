@@ -50,12 +50,12 @@ namespace CampusLove.Application.UI
             Console.Write("💬 Frase: ");
             string frase = Console.ReadLine() ?? "";
 
-            Console.Write("🎧 Gustos (ej: música, películas, etc): ");
+            Console.Write("🎧 Gustos (ej: musica, peliculas, etc): ");
             string gustos = Console.ReadLine() ?? "";
 
             // Profesión
             var profesiones = (await _profesionRepository.GetAllAsync()).ToList();
-            Console.WriteLine("\n💼 Seleccione una profesión:");
+            Console.WriteLine("\n💼 Seleccione una profesion:");
             for (int i = 0; i < profesiones.Count; i++)
                 Console.WriteLine($"{i + 1}. {profesiones[i].Descripcion}");
             Console.Write("Opción: ");
@@ -64,7 +64,7 @@ namespace CampusLove.Application.UI
 
             // Género
             var generos = (await _generoRepository.GetAllAsync()).ToList();
-            Console.WriteLine("\n🚻 Seleccione un género:");
+            Console.WriteLine("\n🚻 Seleccione un genero:");
             for (int i = 0; i < generos.Count; i++)
                 Console.WriteLine($"{i + 1}. {generos[i].Descripcion}");
             Console.Write("Opción: ");
@@ -76,7 +76,7 @@ namespace CampusLove.Application.UI
             Console.WriteLine("\n📊 Seleccione el estado del perfil:");
             for (int i = 0; i < estados.Count; i++)
                 Console.WriteLine($"{i + 1}. {estados[i].Descripcion}");
-            Console.Write("Opción: ");
+            Console.Write("Opcion: ");
             int idxEstado = int.Parse(Console.ReadLine() ?? "1");
             var estadoSeleccionado = estados[idxEstado - 1];
 
@@ -98,7 +98,7 @@ namespace CampusLove.Application.UI
 
             // Seleccionar intereses
             var intereses = (await _interesesRepository.ObtenerTodosAsync()).ToList();
-            Console.WriteLine("\n💘 Seleccione sus intereses románticos (separados por coma, ej: 1,3):");
+            Console.WriteLine("\n💘 Seleccione sus intereses romanticos (separados por coma, ej: 1,3):");
             for (int i = 0; i < intereses.Count; i++)
                 Console.WriteLine($"{i + 1}. {intereses[i].Tipo}");
             Console.Write("Opción(es): ");
@@ -136,7 +136,7 @@ namespace CampusLove.Application.UI
             await _usuarioRepository.InsertAsync(usuario);
 
             Console.WriteLine("\n✅ Usuario y perfil registrados exitosamente.");
-            Console.WriteLine("Presione una tecla para volver al menú principal...");
+            Console.WriteLine("Presione una tecla para volver al menu principal...");
             Console.ReadKey();
         }
     }

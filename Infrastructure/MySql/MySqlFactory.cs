@@ -66,5 +66,12 @@ public class MySqlDbFactory : IDbFactory
         return new InteresesRepository(connection);
     }
 
+    public IEstadisticasRepository CreateEstadisticasRepository()
+    {
+        var connection = ConexionSingleton.Instancia(_connectionString).ObtenerConexion();
+        return new EstadisticasRepository(connection);
+    }
+
+
 
 }

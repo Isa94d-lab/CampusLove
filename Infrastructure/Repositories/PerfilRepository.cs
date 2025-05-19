@@ -16,6 +16,8 @@ namespace CampusLove.Infrastructure.Repositories
             _connection = connection;
         }
 
+        public MySqlConnection Connection => _connection;
+
         public async Task<IEnumerable<Perfil>> GetAllAsync()
         {
             var perfiles = new List<Perfil>();
@@ -150,7 +152,7 @@ namespace CampusLove.Infrastructure.Repositories
                 int perfilId = (int)command.LastInsertedId;
 
                 await transaction.CommitAsync();
-                return perfilId; 
+                return perfilId;
             }
             catch
             {
@@ -229,34 +231,38 @@ namespace CampusLove.Infrastructure.Repositories
         {
             var perfiles = new List<Perfil>();
 
-            // 1. Obtener los intereses del perfil actual
-            var interesesActual = new List<int>();
-            string interesesQuery = "SELECT intereses_id FROM PerfilIntereses WHERE perfil_id = @PerfilId";
-            using (var interesesCmd = new MySqlCommand(interesesQuery, _connection))
+            // 1. Obtener el interés del perfil actual
+            int interesId = 0;
+            string interesQuery = "SELECT intereses_id FROM PerfilIntereses WHERE perfil_id = @PerfilId LIMIT 1";
+            using (var interesCmd = new MySqlCommand(interesQuery, _connection))
             {
-                interesesCmd.Parameters.AddWithValue("@PerfilId", perfilActual.Id);
-                using (var reader = await interesesCmd.ExecuteReaderAsync())
+                interesCmd.Parameters.AddWithValue("@PerfilId", perfilActual.Id);
+                using (var reader = await interesCmd.ExecuteReaderAsync())
                 {
-                    while (await reader.ReadAsync())
-                    {
-                        interesesActual.Add(Convert.ToInt32(reader["InteresesId"]));
-                    }
+                    if (await reader.ReadAsync())
+                        interesId = Convert.ToInt32(reader["intereses_id"]);
                 }
             }
 
-            if (interesesActual.Count == 0)
-                return perfiles; // No hay intereses, no hay sugerencias
+            if (interesId == 0)
+                return perfiles; // No hay interés definido
 
-            // 2. Buscar perfiles compatibles (que tengan al menos un interés en común y no sean el propio)
-            string interesesIds = string.Join(",", interesesActual);
+            // 2. Determinar filtro de genero_id según el interés
+            string filtroGenero;
+            if (interesId == 1) // hombres
+                filtroGenero = "p.genero_id = 1";
+            else if (interesId == 2) // mujeres
+                filtroGenero = "p.genero_id = 2";
+            else // ambos
+                filtroGenero = "(p.genero_id = 1 OR p.genero_id = 2)";
+
+            // 3. Buscar perfiles compatibles, excluyendo el propio
             string query = $@"
-                SELECT DISTINCT p.*
+                SELECT p.*, g.descripcion AS genero
                 FROM Perfil p
-                INNER JOIN PerfilIntereses pi ON p.Id = pi.perfil_id
-                WHERE p.Id <> @IdActual
-                AND pi.InteresesId IN ({interesesIds})
-                -- Filtro de género si lo necesitas, por ejemplo:
-                -- AND (p.Genero = 'masculino' OR p.Genero = 'femenino')
+                JOIN Genero g ON p.genero_id = g.id
+                WHERE p.id <> @IdActual
+                AND {filtroGenero}
             ";
 
             using (var command = new MySqlCommand(query, _connection))
@@ -269,8 +275,12 @@ namespace CampusLove.Infrastructure.Repositories
                     {
                         perfiles.Add(new Perfil
                         {
-                            Id = Convert.ToInt32(reader["Id"]),
-                            // Asigna aquí los demás campos de Perfil
+                            Id = Convert.ToInt32(reader["id"]),
+                            Nombre = reader["nombre"].ToString(),
+                            Apellido = reader["apellido"].ToString(),
+                            Edad = Convert.ToInt32(reader["edad"]),
+                            Frase = reader["frase"].ToString(),
+                            Gustos = reader["gustos"].ToString(),
                         });
                     }
                 }
@@ -282,5 +292,30 @@ namespace CampusLove.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        // Funcion encargada de actualizar los coins cada vez que se le de like al respectivo usuario/perfil
+        public async Task ActualizarCoinsAsync(Perfil perfil)
+        {
+            const string query = "UPDATE Perfil SET coins = @Coins WHERE id = @Id";
+
+            using var transaction = await _connection.BeginTransactionAsync();
+
+            try
+            {
+                using var command = new MySqlCommand(query, _connection, transaction);
+                command.Parameters.AddWithValue("@Coins", perfil.Coins);
+                command.Parameters.AddWithValue("@Id", perfil.Id);
+
+                await command.ExecuteNonQueryAsync();
+
+                await transaction.CommitAsync();
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+
     }
 }

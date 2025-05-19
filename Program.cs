@@ -13,35 +13,37 @@ namespace CampusLove
 
             try
             {
-                // Obtener la conexion a la base de datos
                 var connection = DatabaseConfig.GetConnection();
 
-                // Crear todos los repositorios requeridos por MenuRegistro
                 var usuarioRepo = new UsuarioRepository(connection);
                 var perfilRepo = new PerfilRepository(connection);
                 var profesionRepo = new ProfesionRepository(connection);
                 var generoRepo = new GeneroRepository(connection);
                 var estadoPerfilRepo = new EstadoPerfilRepository(connection);
+                var interesesRepo = new InteresesRepository(connection);
+                var perfilInteresesRepo = new PerfilInteresesRepository(connection);
 
-                // Crear el menu de registro con los repositorios
                 var menuRegistro = new MenuRegistro(
                     usuarioRepo,
                     perfilRepo,
                     profesionRepo,
                     generoRepo,
-                    estadoPerfilRepo
+                    estadoPerfilRepo,
+                    interesesRepo,
+                    perfilInteresesRepo
                 );
 
-                // Crear el repositorio de interacciones
                 var interaccionRepo = new InteraccionRepository(connection);
 
-                // Crear el menu de login con los repositorios requeridos
                 var menuLogin = new MenuLogin(usuarioRepo, perfilRepo, interaccionRepo);
 
-                // Crear menú principal con menu de registro y login inyectados
-                var mainMenu = new MainMenu(menuRegistro, menuLogin);
+                // 💡 Nuevo: instanciamos EstadisticasRepository y ViewEstadisticas
+                var estadisticasRepo = new EstadisticasRepository(connection);
+                var viewEstadisticas = new ViewEstadisticas(estadisticasRepo);
 
-                // Mostrar el menu
+                // 💡 Pasamos también viewEstadisticas
+                var mainMenu = new MainMenu(menuRegistro, menuLogin, viewEstadisticas);
+
                 await mainMenu.MostrarMenu();
             }
             catch (Exception ex)

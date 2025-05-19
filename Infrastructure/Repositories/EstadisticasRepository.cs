@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using CampusLove.Domain.Ports;
 using MySql.Data.MySqlClient;
 
 namespace CampusLove.Infrastructure.Repositories
 {
-    public class EstadisticasRepository
+    public class EstadisticasRepository : IEstadisticasRepository
     {
         private readonly MySqlConnection _connection;
 

@@ -1,7 +1,4 @@
-using System;
-using CampusLove.Application.UI;
 using CampusLove.Infrastructure.Repositories;
-
 
 namespace CampusLove.Application.UI
 {
@@ -18,14 +15,19 @@ namespace CampusLove.Application.UI
             _interaccionRepository = interaccionRepository;
         }
 
-
         public async Task<bool> MostrarLoginAsync()
         {
             Console.Clear();
-            MostrarEncabezado(" LOGIN ");
-            Console.Write("Nickname: ");
+            MostrarEncabezado("🔑 LOGIN 🔑");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("\n👤 Nickname: ");
+            Console.ResetColor();
             string nickname = Console.ReadLine() ?? string.Empty;
-            Console.Write("Password: ");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("🔒 Password: ");
+            Console.ResetColor();
             string password = LeerPassword();
 
             bool esValido = VerificarCredenciales(nickname, password);
@@ -33,21 +35,24 @@ namespace CampusLove.Application.UI
             if (esValido)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\n¡Login exitoso!");
+                Console.WriteLine("\n✅ ¡Login exitoso! Bienvenido/a a Campus Love 💖");
+                Console.ResetColor();
 
-                // Conexion si Login es existoso, con el menu del usuario
+                // Conexión con el menú del usuario si el login es exitoso
                 var menuUsuario = new MenuUsuario(nickname, _usuarioRepository, _perfilRepository, _interaccionRepository);
                 await menuUsuario.MostrarMenuAsync();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nNickname o contraseña incorrectos.");
+                Console.WriteLine("\n❌ Nickname o contraseña incorrectos. Intente de nuevo.");
+                Console.ResetColor();
             }
-            Console.ResetColor();
 
             // Pausa para que el usuario vea el mensaje
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\nPresione cualquier tecla para continuar...");
+            Console.ResetColor();
             Console.ReadKey();
 
             return esValido;
@@ -62,10 +67,10 @@ namespace CampusLove.Application.UI
         private void MostrarEncabezado(string titulo)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            string borde = new string('=', titulo.Length + 4);
-            Console.WriteLine(borde);
-            Console.WriteLine($"| {titulo} |");
-            Console.WriteLine(borde);
+            string borde = new string('═', titulo.Length + 6);
+            Console.WriteLine($"╔{borde}╗");
+            Console.WriteLine($"║  {titulo}    ║");
+            Console.WriteLine($"╚{borde}╝");
             Console.ResetColor();
         }
 
@@ -73,6 +78,7 @@ namespace CampusLove.Application.UI
         {
             string password = "";
             ConsoleKeyInfo key;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             do
             {
                 key = Console.ReadKey(true);
@@ -87,6 +93,7 @@ namespace CampusLove.Application.UI
                     Console.Write("\b \b");
                 }
             } while (key.Key != ConsoleKey.Enter);
+            Console.ResetColor();
             return password;
         }
     }

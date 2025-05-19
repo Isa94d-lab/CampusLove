@@ -1,7 +1,6 @@
 ﻿using CampusLove.Application.UI;
 using CampusLove.Infrastructure.Configuration;
 using CampusLove.Infrastructure.Repositories;
-using MySql.Data.MySqlClient;
 
 namespace CampusLove
 {

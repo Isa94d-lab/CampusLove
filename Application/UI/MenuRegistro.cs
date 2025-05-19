@@ -1,4 +1,3 @@
-using System;
 using CampusLove.Domain.Entities;
 using CampusLove.Infrastructure.Repositories;
 
@@ -98,7 +97,7 @@ namespace CampusLove.Application.UI
 
             // Seleccionar intereses
             var intereses = (await _interesesRepository.ObtenerTodosAsync()).ToList();
-            Console.WriteLine("\n💘 Seleccione sus intereses romanticos (separados por coma, ej: 1,3):");
+            Console.WriteLine("\n💘 Seleccione sus intereses romanticos (para ambos ingrese: 1,3):");
             for (int i = 0; i < intereses.Count; i++)
                 Console.WriteLine($"{i + 1}. {intereses[i].Tipo}");
             Console.Write("Opción(es): ");

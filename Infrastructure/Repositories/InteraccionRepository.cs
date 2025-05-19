@@ -72,8 +72,8 @@ namespace CampusLove.Infrastructure.Repositories
 
         public async Task GuardarLikeAsync(int usuarioId, int perfilLikeadoId, bool like)
         {
-            // Guarda el like normalmente en LikesUsuario
-            const string query = @"
+            // 1. Insertar en LikesUsuario
+            const string queryLikesUsuario = @"
                 INSERT INTO LikesUsuario (usuario_id, perfil_likeado_id, fechaLike, match_r)
                 VALUES (@UsuarioId, @PerfilLikeadoId, @FechaLike, @MatchR)
                 ON DUPLICATE KEY UPDATE
@@ -81,7 +81,7 @@ namespace CampusLove.Infrastructure.Repositories
                     match_r = @MatchR;
             ";
 
-            using (var command = new MySqlCommand(query, _connection))
+            using (var command = new MySqlCommand(queryLikesUsuario, _connection))
             {
                 command.Parameters.AddWithValue("@UsuarioId", usuarioId);
                 command.Parameters.AddWithValue("@PerfilLikeadoId", perfilLikeadoId);
@@ -91,10 +91,25 @@ namespace CampusLove.Infrastructure.Repositories
                 await command.ExecuteNonQueryAsync();
             }
 
-            // Si es un like (no dislike), verifica si hay like mutuo
+            // 2. Insertar en Interaccion (reacción histórica)
+            const string queryInteraccion = @"
+                INSERT INTO Interaccion (usuario_id, perfil_id, reaccion, fecha)
+                VALUES (@UsuarioId, @PerfilLikeadoId, @Reaccion, @Fecha)
+            ";
+
+            using (var command = new MySqlCommand(queryInteraccion, _connection))
+            {
+                command.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                command.Parameters.AddWithValue("@PerfilLikeadoId", perfilLikeadoId);
+                command.Parameters.AddWithValue("@Reaccion", like ? "Like" : "Dislike");
+                command.Parameters.AddWithValue("@Fecha", DateTime.Now);
+
+                await command.ExecuteNonQueryAsync();
+            }
+
+            // 3. Verificar match (solo si es like)
             if (like)
             {
-                // Busca si el perfil destino ya le dio like al usuario actual
                 const string queryCheck = @"
                     SELECT 1 FROM LikesUsuario
                     WHERE usuario_id = (
@@ -117,12 +132,12 @@ namespace CampusLove.Infrastructure.Repositories
                     var result = await command.ExecuteScalarAsync();
                     if (result != null)
                     {
-                        // Hay match, registra en la tabla Matchs
                         await RegistrarMatchAsync(perfilLikeadoId, usuarioId);
                     }
                 }
             }
         }
+
         public async Task RegistrarMatchAsync(int perfil1Id, int usuario2Id)
         {
             // Obtén el perfil_id del usuario2

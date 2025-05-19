@@ -312,7 +312,11 @@ namespace CampusLove.Infrastructure.Repositories
                 await transaction.RollbackAsync();
                 throw;
             }
+            
+            await _likesDiariosRepository.EstablecerLikesInicialesAsync(perfil.Id, 5);
+
         }
+        
 
     }
 }

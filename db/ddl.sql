@@ -26,5 +26,4 @@ INSERT INTO Profesion (descripcion) VALUES
 
 INSERT INTO Intereses (tipo) VALUES 
 ('Hombres'),
-('Mujeres'),
-('Ambos');
+('Mujeres');

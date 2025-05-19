@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using CampusLove.Domain.Entities;
 using CampusLove.Domain.Ports;
 using MySql.Data.MySqlClient;

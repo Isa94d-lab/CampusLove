@@ -2,17 +2,14 @@ USE CampusLove;
 
 INSERT INTO Genero (descripcion) VALUES 
 ('Masculino'),
-('Femenino'),
-('No binario'),
-('Otro'),
-('Prefiero no decir');
+('Femenino');
+
 
 INSERT INTO EstadoPerfil (descripcion) VALUES
-('Cazado'),
-('Es complicado'),
-('En una relación'),
-('Viudo/a'),
-('Soltero/a');
+('Activo'),
+('Inactivo'),
+('Suspendido');
+
 
 INSERT INTO Profesion (descripcion) VALUES 
 ('Ingeniería de Sistemas'),

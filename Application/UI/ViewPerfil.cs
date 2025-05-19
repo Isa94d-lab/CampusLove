@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-using CampusLove.Domain.Entities;
 using CampusLove.Infrastructure.Repositories;
 
 namespace CampusLove.Application.UI
@@ -38,7 +35,7 @@ namespace CampusLove.Application.UI
 
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("====== 🌟 MI PERFIL 🌟 ======");
+            MostrarEncabezado("====== 🌟 MI PERFIL 🌟 ======");
             Console.ResetColor();
 
             Console.WriteLine($"👤 Nombre: {perfil.Nombre} {perfil.Apellido}");
@@ -52,6 +49,16 @@ namespace CampusLove.Application.UI
 
             Console.WriteLine("\nPresione una tecla para volver...");
             Console.ReadKey();
+        }
+
+        private void MostrarEncabezado(string titulo)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            string borde = new string('═', titulo.Length + 6);
+            Console.WriteLine($"╔{borde}╗");
+            Console.WriteLine($"║  {titulo}    ║");
+            Console.WriteLine($"╚{borde}╝");
+            Console.ResetColor();
         }
     }
 }

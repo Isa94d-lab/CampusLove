@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using CampusLove.Infrastructure.Repositories;
 
 namespace CampusLove.Application.UI

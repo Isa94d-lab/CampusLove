@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace CampusLove.Domain.Ports
 {
     public interface IEstadisticasRepository

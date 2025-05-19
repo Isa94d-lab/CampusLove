@@ -1,8 +1,6 @@
-using CampusLove.Domain.Entities;
 using CampusLove.Domain.Factory;
 using CampusLove.Domain.Ports;
 using CampusLove.Infrastructure.Repositories;
-using MySql.Data.MySqlClient;
 
 namespace CampusLove.Infrastructure.Mysql;
 

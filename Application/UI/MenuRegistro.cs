@@ -11,19 +11,25 @@ namespace CampusLove.Application.UI
         private readonly ProfesionRepository _profesionRepository;
         private readonly GeneroRepository _generoRepository;
         private readonly EstadoPerfilRepository _estadoPerfilRepository;
+        private readonly InteresesRepository _interesesRepository;
+        private readonly PerfilInteresesRepository _perfilInteresesRepository;
 
         public MenuRegistro(
             UsuarioRepository usuarioRepository,
             PerfilRepository perfilRepository,
             ProfesionRepository profesionRepository,
             GeneroRepository generoRepository,
-            EstadoPerfilRepository estadoPerfilRepository)
+            EstadoPerfilRepository estadoPerfilRepository,
+            InteresesRepository interesesRepository,
+            PerfilInteresesRepository perfilInteresesRepository)
         {
             _usuarioRepository = usuarioRepository;
             _perfilRepository = perfilRepository;
             _profesionRepository = profesionRepository;
             _generoRepository = generoRepository;
             _estadoPerfilRepository = estadoPerfilRepository;
+            _interesesRepository = interesesRepository;
+            _perfilInteresesRepository = perfilInteresesRepository;
         }
 
         public async Task MostrarMenuAsync()
@@ -31,7 +37,7 @@ namespace CampusLove.Application.UI
             Console.Clear();
             MainMenu.MostrarEncabezado("REGISTRO DE USUARIO Y PERFIL");
 
-            // Datos del perfil
+            // Datos personales
             Console.Write("\n📛 Nombre: ");
             string nombre = Console.ReadLine() ?? "";
 
@@ -44,10 +50,10 @@ namespace CampusLove.Application.UI
             Console.Write("💬 Frase: ");
             string frase = Console.ReadLine() ?? "";
 
-            Console.Write("❤️ Gustos: ");
+            Console.Write("🎧 Gustos (ej: música, películas, etc): ");
             string gustos = Console.ReadLine() ?? "";
 
-            // Selección de profesión
+            // Profesión
             var profesiones = (await _profesionRepository.GetAllAsync()).ToList();
             Console.WriteLine("\n💼 Seleccione una profesión:");
             for (int i = 0; i < profesiones.Count; i++)
@@ -56,7 +62,7 @@ namespace CampusLove.Application.UI
             int idxProfesion = int.Parse(Console.ReadLine() ?? "1");
             var profesionSeleccionada = profesiones[idxProfesion - 1];
 
-            // Selección de género
+            // Género
             var generos = (await _generoRepository.GetAllAsync()).ToList();
             Console.WriteLine("\n🚻 Seleccione un género:");
             for (int i = 0; i < generos.Count; i++)
@@ -65,7 +71,7 @@ namespace CampusLove.Application.UI
             int idxGenero = int.Parse(Console.ReadLine() ?? "1");
             var generoSeleccionado = generos[idxGenero - 1];
 
-            // Selección de estado de perfil
+            // Estado del perfil
             var estados = (await _estadoPerfilRepository.GetAllAsync()).ToList();
             Console.WriteLine("\n📊 Seleccione el estado del perfil:");
             for (int i = 0; i < estados.Count; i++)
@@ -74,7 +80,7 @@ namespace CampusLove.Application.UI
             int idxEstado = int.Parse(Console.ReadLine() ?? "1");
             var estadoSeleccionado = estados[idxEstado - 1];
 
-            // Crear y guardar perfil primero
+            // Crear perfil
             var perfil = new Perfil
             {
                 Nombre = nombre,
@@ -88,17 +94,38 @@ namespace CampusLove.Application.UI
                 EstadoPerfilId = estadoSeleccionado.Id
             };
 
-            // Este método InsertAsync debe devolver el id generado para el perfil
             int perfilId = await _perfilRepository.InsertAsync(perfil);
 
-            // Ahora pedir datos para usuario
-            Console.Write("\n Nickname: ");
+            // Seleccionar intereses
+            var intereses = (await _interesesRepository.ObtenerTodosAsync()).ToList();
+            Console.WriteLine("\n💘 Seleccione sus intereses románticos (separados por coma, ej: 1,3):");
+            for (int i = 0; i < intereses.Count; i++)
+                Console.WriteLine($"{i + 1}. {intereses[i].Tipo}");
+            Console.Write("Opción(es): ");
+            string? seleccion = Console.ReadLine();
+            var seleccionIds = seleccion?.Split(',')
+                .Select(s => int.TryParse(s.Trim(), out int id) ? id : -1)
+                .Where(id => id > 0 && id <= intereses.Count)
+                .ToList() ?? new List<int>();
+
+            foreach (var interesIdx in seleccionIds)
+            {
+                var interesSeleccionado = intereses[interesIdx - 1];
+                var perfilInteres = new PerfilIntereses
+                {
+                    PerfilId = perfilId,
+                    InteresesId = interesSeleccionado.Id
+                };
+                await _perfilInteresesRepository.AgregarInteresAsync(perfilId, interesSeleccionado.Id);
+            }
+
+            // Usuario
+            Console.Write("\n👤 Nickname: ");
             string nickname = Console.ReadLine() ?? "";
 
-            Console.Write(" Contraseña: ");
+            Console.Write("🔐 Contraseña: ");
             string password = Console.ReadLine() ?? "";
 
-            // Crear y guardar usuario asignándole el perfilId recién creado
             var usuario = new Usuario
             {
                 PerfilId = perfilId,
@@ -113,5 +140,4 @@ namespace CampusLove.Application.UI
             Console.ReadKey();
         }
     }
-
 }

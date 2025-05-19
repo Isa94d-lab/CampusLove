@@ -96,8 +96,8 @@ public async Task BuscarParejaAsync()
         Console.Clear();
         Console.WriteLine("=== PERFIL SUGERIDO ===");
         Console.WriteLine($"Nombre: {perfil.Nombre}");
+        Console.WriteLine($"Apellido: {perfil.Apellido}");
         Console.WriteLine($"Edad: {perfil.Edad}");
-        Console.WriteLine($"Género: {perfil.Genero}");
         Console.WriteLine($"Gustos: {perfil.Gustos}");
         Console.WriteLine($"Descripción: {perfil.Frase}");
 

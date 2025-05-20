@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/camper/Documentos/CampusLove/CampusLove.csproj": {}
+    "/home/camper/Escritorio/CampusLove-4/CampusLove.csproj": {}
   },
   "projects": {
-    "/home/camper/Documentos/CampusLove/CampusLove.csproj": {
+    "/home/camper/Escritorio/CampusLove-4/CampusLove.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/camper/Documentos/CampusLove/CampusLove.csproj",
+        "projectUniqueName": "/home/camper/Escritorio/CampusLove-4/CampusLove.csproj",
         "projectName": "CampusLove",
-        "projectPath": "/home/camper/Documentos/CampusLove/CampusLove.csproj",
+        "projectPath": "/home/camper/Escritorio/CampusLove-4/CampusLove.csproj",
         "packagesPath": "/home/camper/.nuget/packages/",
-        "outputPath": "/home/camper/Documentos/CampusLove/obj/",
+        "outputPath": "/home/camper/Escritorio/CampusLove-4/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/camper/.nuget/NuGet/NuGet.Config"
@@ -46,6 +46,10 @@
             "MySql.Data": {
               "target": "Package",
               "version": "[9.3.0, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.4.0, )"
             }
           },
           "imports": [

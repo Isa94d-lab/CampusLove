@@ -22,8 +22,6 @@ namespace CampusLove
                 var interesesRepo = new InteresesRepository(connection);
                 var perfilInteresesRepo = new PerfilInteresesRepository(connection);
 
-                var likesDiariosRepo = new LikesDiariosRepository(connection);
-
                 var menuRegistro = new MenuRegistro(
                     usuarioRepo,
                     perfilRepo,
@@ -36,14 +34,16 @@ namespace CampusLove
 
                 var interaccionRepo = new InteraccionRepository(connection);
 
-                var menuLogin = new MenuLogin(usuarioRepo, perfilRepo, interaccionRepo, likesDiariosRepo); 
+                var menuLogin = new MenuLogin(usuarioRepo, perfilRepo, interaccionRepo);
 
+                // 💡 Nuevo: instanciamos EstadisticasRepository y ViewEstadisticas
                 var estadisticasRepo = new EstadisticasRepository(connection);
                 var viewEstadisticas = new ViewEstadisticas(estadisticasRepo);
 
+                // 💡 Pasamos también viewEstadisticas
                 var mainMenu = new MainMenu(menuRegistro, menuLogin, viewEstadisticas);
 
-                await mainMenu.MostrarMenu(); 
+                await mainMenu.MostrarMenu();
             }
             catch (Exception ex)
             {
@@ -56,6 +56,5 @@ namespace CampusLove
                 DatabaseConfig.CloseConnection();
             }
         }
-
     }
 }

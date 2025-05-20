@@ -7,8 +7,6 @@ namespace CampusLove.Infrastructure.Repositories
     public class LikesDiariosRepository : ILikesDiariosRepository
     {
         private readonly MySqlConnection _connection;
-        private const int MAX_LIKES_DIARIOS = 5; 
-
 
         public LikesDiariosRepository(MySqlConnection connection)
         {
@@ -72,7 +70,6 @@ namespace CampusLove.Infrastructure.Repositories
 
         public async Task<bool> EstablecerLikesInicialesAsync(int perfilId, int cantidad)
         {
-                
             const string query = @"
                 INSERT INTO LikesDiarios (perfil_id, cantidad)
                 VALUES (@PerfilId, @Cantidad)
@@ -99,8 +96,10 @@ namespace CampusLove.Infrastructure.Repositories
 
         public async Task<bool> ReestablecerLikesSiEsNuevoDiaAsync(int perfilId)
         {
-            const string selectQuery = "SELECT cantidad, fecha_actualizacion FROM LikesDiarios WHERE perfil_id = @PerfilId";
-            const string updateQuery = "UPDATE LikesDiarios SET cantidad = @MaxLikes, fecha_actualizacion = CURDATE() WHERE perfil_id = @PerfilId";
+            // Aquí deberías tener una columna de fecha para saber si ya es otro día
+            // Supongamos que agregaste una columna 'fecha_actualizacion' DATE en la tabla LikesDiarios
+            const string selectQuery = "SELECT cantidad, DATE(fecha_actualizacion) FROM LikesDiarios WHERE perfil_id = @PerfilId";
+            const string updateQuery = "UPDATE LikesDiarios SET cantidad = 10, fecha_actualizacion = CURDATE() WHERE perfil_id = @PerfilId";
 
             using var command = new MySqlCommand(selectQuery, _connection);
             command.Parameters.AddWithValue("@PerfilId", perfilId);
@@ -109,41 +108,16 @@ namespace CampusLove.Infrastructure.Repositories
             if (await reader.ReadAsync())
             {
                 var fechaUltima = Convert.ToDateTime(reader["fecha_actualizacion"]).Date;
-                reader.Close();
-
                 if (fechaUltima < DateTime.Now.Date)
                 {
+                    reader.Close();
                     using var updateCmd = new MySqlCommand(updateQuery, _connection);
                     updateCmd.Parameters.AddWithValue("@PerfilId", perfilId);
-                    updateCmd.Parameters.AddWithValue("@MaxLikes", MAX_LIKES_DIARIOS);
                     return await updateCmd.ExecuteNonQueryAsync() > 0;
                 }
             }
 
             return false;
         }
-
-
-
-
-
-        public async Task<bool> IntentarDarLikeAsync(int perfilId)
-        {
-            // Paso 1: Reestablecer likes si es un nuevo día
-            await ReestablecerLikesSiEsNuevoDiaAsync(perfilId);
-
-            // Paso 2: Verifica si aún tiene likes disponibles
-            int disponibles = await ObtenerLikesDisponiblesAsync(perfilId);
-            if (disponibles <= 0)
-                return false;
-
-            // Paso 3: Restar uno
-            return await RestarLikeAsync(perfilId);
-        }
-
-
-
-
-
     }
 }

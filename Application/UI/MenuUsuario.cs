@@ -11,8 +11,6 @@ namespace CampusLove.Application.UI
         private readonly PerfilRepository _perfilRepository;
         private readonly InteraccionRepository _interaccionRepository;
         private readonly UsuarioRepository _usuarioRepository;
-        private readonly LikesDiariosRepository _likesDiariosRepository;
-
 
         public MenuUsuario(string nickname, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository, InteraccionRepository interaccionRepository)
         {
@@ -21,7 +19,6 @@ namespace CampusLove.Application.UI
             _perfilRepository = perfilRepository;
             _interaccionRepository = interaccionRepository;
             _usuarioRepository = usuarioRepository;
-            _likesDiariosRepository = likesDiariosRepository;
         }
 
 
@@ -92,32 +89,7 @@ namespace CampusLove.Application.UI
                 if (opcion == "1" || opcion == "2")
                 {
                     bool like = opcion == "1";
-
-                    if (like)
-                    {
-                        bool pudoDarLike = await _likesDiariosRepository.IntentarDarLikeAsync(perfilActual.Id);
-
-                        if (!pudoDarLike)
-                        {
-                            MostrarMensaje("❌ Has alcanzado el límite de likes diarios. Intenta mañana.", ConsoleColor.Red);
-                            Console.ReadKey();
-                            break;
-                        }
-                    }
-
                     await _interaccionRepository.GuardarLikeAsync(usuarioActual.Id, perfil.Id, like);
-
-                    if (like)
-                    {
-                        var perfilLikeado = await _perfilRepository.GetByIdAsync(perfil.Id);
-                        if (perfilLikeado != null)
-                        {
-                            perfilLikeado.Coins += 25;
-                            await _perfilRepository.ActualizarCoinsAsync(perfilLikeado);
-                        }
-                    }
-                }
-
 
 
                     if (like)
